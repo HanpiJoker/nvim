@@ -1,0 +1,119 @@
+{
+	"coc.preferences.extensionUpdateCheck": "daily",
+	"suggest.enablePreview": true,
+	"suggest.maxPreviewWidth": 50,
+	"suggest.maxCompleteItemCount": 25,
+	"suggest.labelMaxLength": 50,
+	"suggest.detailMaxLength": 50,
+	"suggest.detailField": "preview",
+	"suggest.removeDuplicateItems": true,
+	"suggest.minTriggerInputLength": 2,
+	"suggest.acceptSuggestionOnCommitCharacter": true,
+	"suggest.noselect": true,
+	"suggest.triggerAfterInsertEnter": true,
+	"suggest.enablePreselect": false,
+	"suggest.completionItemKindLabels": {
+		"class": "\uf0e8",
+		"color": "\ue22b",
+		"constant": "\uf8fe",
+		"default": "\uf29c",
+		"enum": "\uf435",
+		"enumMember": "\uf02b",
+		"event": "\ufacd",
+		"field": "\uf93d",
+		"file": "\uf723",
+		"folder": "\uf115",
+		"function": "\u0192",
+		"interface": "\uf417",
+		"keyword": "\uf1de",
+		"method": "\uf6a6",
+		"module": "\uf40d",
+		"operator": "\uf915",
+		"property": "\ue624",
+		"reference": "\ufa46",
+		"snippet": "\ue60b",
+		"struct": "\ufb44",
+		"text": "\ue612",
+		"typeParameter": "\uf728",
+		"unit": "\uf475",
+		"value": "\uf89f",
+		"variable": "\ue71b"
+	},
+	"diagnostic.signOffset": 1,
+	"diagnostic.errorSign": "\uf467",
+	"diagnostic.warningSign": "\uf071",
+	"diagnostic.infoSign": "\uf129",
+	"diagnostic.hintSign": "\uf864",
+	"diagnostic.displayByAle": false,
+	"diagnostic.refreshOnInsertMode": false,
+	"diagnostic.refreshAfterSave": false,
+	"diagnostic.checkCurrentLine": true,
+	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
+	"diagnostic.virtualText": true,
+	"codeLens.enable": true,
+	"coc.preferences.formatOnSaveFiletypes": [
+		"json",
+		"c",
+		"cpp"
+	],
+	"coc.source.ultisnips.filetypes": [
+		"tex"
+	],
+	"languageserver": {
+		"ccls": {
+			"command": "ccls",
+			"filetypes": [
+				"c",
+				"cpp",
+				"cuda",
+				"objc",
+				"objcpp"
+			],
+			"trace.server": "verbose",
+			"rootPatterns": [
+				".ccls",
+				"compile_commands.json",
+				".vim/",
+				".git/",
+				".hg/"
+			],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls-cache"
+				}
+			}
+		},
+		"vimls": {
+			"command": "vim-language-server",
+			"args": [
+				"--stdio"
+			],
+			"initializationOptions": {
+				"iskeyword": "@,48-57,_,192-255,-#", // vim iskeyword option
+				"vimruntime": "", // $VIMRUNTIME option
+				"runtimepath": "", // vim runtime path separate by `,`
+				"diagnostic": {
+					"enable": true
+				},
+				"indexes": {
+					"runtimepath": true, // if index runtimepath's vim files this will effect the suggest
+					"gap": 100, // index time gap between next file
+					"count": 3, // count of files index at the same time
+					"projectRootPatterns": [
+						"strange-root-pattern",
+						".git",
+						"autoload",
+						"plugin"
+					] // Names of files used as the mark of project root. If empty, the default value [".git", "autoload", "plugin"] will be used
+				},
+				"suggest": {
+					"fromVimruntime": true, // completionItems from vimruntime's vim files
+					"fromRuntimepath": false // completionItems from runtimepath's vim files, if this is true that fromVimruntime is true
+				}
+			},
+			"filetypes": [
+				"vim"
+			]
+		}
+	}
+}
