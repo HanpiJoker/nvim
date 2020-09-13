@@ -33,7 +33,7 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 "Air Line Setting
-let g:airline_theme='atomic'
+let g:airline_theme='solarized_flood'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_step = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -196,7 +196,6 @@ nnoremap <leader>vf :Vista finder<CR>
 nnoremap <Leader>ilt :Vista!!<CR>
 
 " floaterm keymapping, install neovim-remote remember
-tnoremap <esc> <C-\><C-n>
 nnoremap <leader>ft :FloatermToggle<CR>
 tnoremap <leader>ft <C-\><C-n>:FloatermToggle<CR>
 tnoremap <esc><esc> <C-\><C-n>:FloatermToggle<CR>
@@ -206,3 +205,9 @@ nnoremap <leader>fp :FloatermPrev<CR>
 tnoremap <leader>fp <C-\><C-n>:FloatermPrev<CR>
 nnoremap <leader>fn :FloatermNext<CR>
 tnoremap <leader>fn <C-\><C-n>:FloatermNext<CR>
+
+" vimlsp setting
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]

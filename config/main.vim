@@ -47,11 +47,8 @@ set nofoldenable
 set completeopt=noinsert,menuone,noselect      
 
 " 配色方案
-" set background=dark
-" 透明
+set background=dark
 colorscheme solarized
-" colorscheme desert256
-" hi Normal ctermbg=NONE
 " >>
 " vim 自身（非插件）快捷键
 " 插入模式下的快捷移动
