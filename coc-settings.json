@@ -61,6 +61,7 @@
 	"coc.source.ultisnips.filetypes": [
 		"tex"
 	],
+	"rust-analyzer.serverPath": "/usr/sbin/rust-analyzer",
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",

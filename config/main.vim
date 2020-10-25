@@ -7,6 +7,7 @@ set ttimeoutlen=50
 " 文件类型侦测
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
+set encoding=utf-8
 " 开启文件类型侦测
 filetype on
 " 根据侦测到的不同类型加载对应的插件
@@ -49,6 +50,8 @@ set completeopt=noinsert,menuone,noselect
 " 配色方案
 set background=dark
 colorscheme solarized
+" colorscheme desert256
+" hi Normal ctermbg=NONE
 " >>
 " vim 自身（非插件）快捷键
 " 插入模式下的快捷移动
@@ -114,6 +117,7 @@ nmap <leader>bd :bd<CR>
 " 引入 C++ 标准库 tags
 "set tags+=/usr/include/c++/9.1.0/stdcpp.tags
 "set tags+=/usr/include/sys.tags
+set tags+=/usr/local/cuda/tags
 if has("cscope")
   set csprg=/usr/bin/cscope
   set csto=1

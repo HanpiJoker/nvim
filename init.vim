@@ -48,6 +48,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'voldikss/vim-translate-me'
 Plug 'dyng/ctrlsf.vim'
 Plug 'voldikss/vim-floaterm'
+Plug 'ryanoasis/vim-devicons'
 " 插件列表结束
 call plug#end()
 

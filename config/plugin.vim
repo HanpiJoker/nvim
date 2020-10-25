@@ -193,7 +193,7 @@ let g:vista_sidebar_position = 'vertical topleft'
 let g:vista_update_on_text_changed_delay = 10
 let g:vista_cursor_delay = 10
 nnoremap <leader>vf :Vista finder<CR>
-nnoremap <Leader>ilt :Vista!!<CR>
+nnoremap <Leader>vt :Vista!!<CR>
 
 " floaterm keymapping, install neovim-remote remember
 nnoremap <leader>ft :FloatermToggle<CR>

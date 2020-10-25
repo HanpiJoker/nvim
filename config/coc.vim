@@ -130,7 +130,7 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-marketplace',
 	\ 'coc-actions',
-	\ 'coc-rls',
+	\ 'coc-rust-analyzer',
 	\ 'coc-snippets',
 	\ 'coc-floaterm',
 	\ 'coc-ultisnips',
