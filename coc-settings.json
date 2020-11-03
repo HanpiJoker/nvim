@@ -53,6 +53,7 @@
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
 	"codeLens.enable": true,
+	"coc.preferences.useQuickfixForLocations": true,
 	"coc.preferences.formatOnSaveFiletypes": [
 		"json",
 		"c",

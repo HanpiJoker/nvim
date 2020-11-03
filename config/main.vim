@@ -1,5 +1,6 @@
 " 定义快捷键的前缀，即 <Leader>
 let mapleader=";"
+set mouse=a
 " 开启256色 
 set t_Co=256
 set ttimeoutlen=50
