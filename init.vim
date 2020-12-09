@@ -35,12 +35,13 @@ Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
 Plug 'junegunn/fzf.vim'
 Plug 'lilydjwg/fcitx.vim'
+Plug 'APZelos/blamer.nvim'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'plasticboy/vim-markdown'
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
 Plug 'joker1007/vim-markdown-quote-syntax'
 
 " Other 

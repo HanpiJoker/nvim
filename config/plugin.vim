@@ -202,6 +202,7 @@ let g:vista_update_on_text_changed_delay = 10
 let g:vista_cursor_delay = 10
 nnoremap <leader>vf :Vista finder<CR>
 nnoremap <Leader>vt :Vista!!<CR>
+autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsOpen() | execute "normal! :q!\<CR>" | endif
 
 " floaterm keymapping, install neovim-remote remember
 nnoremap <leader>ft :FloatermToggle<CR>
@@ -219,3 +220,10 @@ let g:markdown_fenced_languages = [
       \ 'vim',
       \ 'help'
       \]
+
+" blamer.nvim
+let g:blamer_enabled = 1
+let g:blamer_delay = 300
+let g:blamer_date_format = '%y/%m/%d'
+let g:blamer_template = '<commit-short>, <committer> -- <summary>'
+highlight Blamer guifg=lightgrey

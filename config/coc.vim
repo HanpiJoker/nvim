@@ -126,12 +126,12 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " === coc extensions install ===
 let g:coc_global_extensions = [
-	\ 'coc-git',
-	\ 'coc-json',
-	\ 'coc-marketplace',
-	\ 'coc-actions',
-	\ 'coc-rust-analyzer',
-	\ 'coc-snippets',
-	\ 'coc-floaterm',
+	\ 'coc-vimlsp',
 	\ 'coc-ultisnips',
-	\ 'coc-vimlsp']
+	\ 'coc-snippets',
+	\ 'coc-marketplace',
+	\ 'coc-git',
+	\ 'coc-floaterm',
+	\ 'coc-actions',
+	\ 'coc-rls',
+	\ 'coc-json']

@@ -41,7 +41,6 @@
 		"value": "\uf89f",
 		"variable": "\ue71b"
 	},
-	"diagnostic.signOffset": 1,
 	"diagnostic.errorSign": "\uf467",
 	"diagnostic.warningSign": "\uf071",
 	"diagnostic.infoSign": "\uf129",
@@ -54,11 +53,7 @@
 	"diagnostic.virtualText": true,
 	"codeLens.enable": true,
 	"coc.preferences.useQuickfixForLocations": true,
-	"coc.preferences.formatOnSaveFiletypes": [
-		"json",
-		"c",
-		"cpp"
-	],
+	//"coc.preferences.formatOnSaveFiletypes": [ "json", "c", "cpp" ],
 	"coc.source.ultisnips.filetypes": [
 		"tex"
 	],
@@ -87,5 +82,6 @@
 				}
 			}
 		}
-	}
+  },
+  "git.enableGutters": false
 }
