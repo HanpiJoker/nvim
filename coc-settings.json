@@ -58,6 +58,10 @@
 		"tex"
 	],
 	"rust-analyzer.serverPath": "/usr/sbin/rust-analyzer",
+	"rust-analyzer.hoverActions.enable": true,
+	"rust-analyzer.hoverActions.linksInHover": true,
+	"rust-analyzer.updates.channel": "nightly",
+	"rust-analyzer.lens.methodReferences": true,
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",

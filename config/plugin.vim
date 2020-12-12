@@ -210,10 +210,14 @@ tnoremap <leader>ft <C-\><C-n>:FloatermToggle<CR>
 tnoremap <esc><esc> <C-\><C-n>:FloatermToggle<CR>
 nnoremap <leader>fw :FloatermNew<CR>
 tnoremap <leader>fw <C-\><C-n>:FloatermNew<CR>
+nnoremap <leader>fk :FloatermKill<CR>
+tnoremap <leader>fk <C-\><C-n>:FloatermKill<CR>
 nnoremap <leader>fp :FloatermPrev<CR>
 tnoremap <leader>fp <C-\><C-n>:FloatermPrev<CR>
 nnoremap <leader>fn :FloatermNext<CR>
 tnoremap <leader>fn <C-\><C-n>:FloatermNext<CR>
+nnoremap <leader>fc :FloatermNew 
+tnoremap <leader>fc <C-\><C-n>:FloatermNew 
 
 " vimlsp setting
 let g:markdown_fenced_languages = [
