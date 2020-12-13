@@ -227,7 +227,7 @@ let g:markdown_fenced_languages = [
 
 " blamer.nvim
 let g:blamer_enabled = 1
-let g:blamer_delay = 300
+let g:blamer_delay = 1000
 let g:blamer_date_format = '%y/%m/%d'
 let g:blamer_template = '<commit-short>, <committer> -- <summary>'
 highlight Blamer guifg=lightgrey
