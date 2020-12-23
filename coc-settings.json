@@ -87,5 +87,5 @@
 			}
 		}
   },
-  "git.enableGutters": false
+  "git.enableGutters": true
 }
