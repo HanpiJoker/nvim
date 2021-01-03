@@ -14,7 +14,7 @@ Plug 'scrooloose/nerdcommenter'
 " 代码块补全
 Plug 'honza/vim-snippets'
 " 代码补全
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'branch': 'release'}
 
 Plug 'easymotion/vim-easymotion'
 " 快速选择结对符内文本
@@ -33,7 +33,7 @@ Plug 'mbbill/undotree'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'lilydjwg/fcitx.vim'
 Plug 'APZelos/blamer.nvim'
 

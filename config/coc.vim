@@ -36,10 +36,21 @@ nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd  :call CocAction('jumpDefinition', 'tabe')<CR>
+nmap <silent> gds :call CocAction('jumpDefinition', 'split')<CR>
+nmap <silent> gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
+
+nmap <silent> gy  :call CocAction('jumpTypeDefinition', 'tabe')<CR>
+nmap <silent> gys :call CocAction('jumpTypeDefinition', 'split')<CR>
+nmap <silent> gyv :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
+
+nmap <silent> gi  :call CocAction('jumpImplementation', 'tabe')<CR>
+nmap <silent> gis :call CocAction('jumpImplementation', 'split')<CR>
+nmap <silent> giv :call CocAction('jumpImplementation', 'vsplit')<CR>
+
+nmap <silent> gr  :call CocAction('jumpReferences', 'tabe')<CR>
+nmap <silent> grs :call CocAction('jumpReferences', 'split')<CR>
+nmap <silent> grv :call CocAction('jumpReferences', 'vsplit')<CR>
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>

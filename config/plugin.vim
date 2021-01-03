@@ -179,7 +179,7 @@ let g:vista#executives = ['coc', 'ctags', 'vim_lsp']
 "
 let g:vista_executive_for = {
 	\'vim': 'vim_lsp',
-	\'c': 'ctags',
+	\'c': 'coc',
 	\'rust': 'coc',
 	\'cpp': 'coc'}
 " To enable fzf's preview window set g:vista_fzf_preview.
@@ -200,6 +200,7 @@ let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista_sidebar_position = 'vertical topleft'
 let g:vista_update_on_text_changed_delay = 10
 let g:vista_cursor_delay = 10
+let g:vista_ignore_kinds = ['prototype']
 nnoremap <leader>vf :Vista finder<CR>
 nnoremap <Leader>vt :Vista!!<CR>
 autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsOpen() | execute "normal! :q!\<CR>" | endif
