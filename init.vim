@@ -6,7 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Error Check
 " Plug 'dense-analysis/ale'
 " C++语法高亮
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 " 多光标
 Plug 'terryma/vim-multiple-cursors'
 " 智能注释
