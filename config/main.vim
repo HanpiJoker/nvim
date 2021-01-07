@@ -24,6 +24,7 @@ set sidescroll=1
 " 自动换行
 set textwidth=99
 set formatoptions+=mM
+set wildoptions=pum
 " 开启语法高亮功能
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
@@ -46,7 +47,7 @@ set foldmethod=syntax
 " 启动 vim 时关闭折叠代码
 set nofoldenable
 
-set completeopt=noinsert,menuone,noselect      
+set completeopt=noinsert,menuone,noselect
 
 " 配色方案
 set background=dark
