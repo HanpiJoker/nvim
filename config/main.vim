@@ -4,6 +4,7 @@ set mouse=a
 " 开启256色 
 set t_Co=256
 set ttimeoutlen=50
+set termguicolors
 " >>
 " 文件类型侦测
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -52,7 +53,7 @@ set completeopt=noinsert,menuone,noselect
 " 配色方案
 set background=dark
 colorscheme solarized
-" colorscheme desert256
+"colorscheme atom-dark
 " hi Normal ctermbg=NONE
 " >>
 " vim 自身（非插件）快捷键
@@ -149,18 +150,21 @@ au! BufRead,BufNewFile *.md set filetype=markdown
 set list lcs+=tab:\┆\ ,eol:¬
 
 " set clipboard, install xclip at first
-let g:clipboard = {
-  \   'name': 'xclip-ubuntu',
-  \   'copy': {
-  \      '+': 'xclip -selection clipboard',
-  \      '*': 'xclip -selection clipboard',
-  \    },
-  \   'paste': {
-  \      '+': 'xclip -selection clipboard -o',
-  \      '*': 'xclip -selection clipboard -o',
-  \   },
-  \   'cache_enabled': 1,
-  \ }
+"let g:clipboard = {
+"  \   'name': 'xclip-ubuntu',
+"  \   'copy': {
+"  \      '+': 'xclip -selection clipboard',
+"  \      '*': 'xclip -selection clipboard',
+"  \    },
+"  \   'paste': {
+"  \      '+': 'xclip -selection clipboard -o',
+"  \      '*': 'xclip -selection clipboard -o',
+"  \   },
+"  \   'cache_enabled': 1,
+"  \ }
+
+" use in wsl2, install win32yank first
+set clipboard=unnamedplus
 
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 	\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
