@@ -34,6 +34,7 @@ Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'lilydjwg/fcitx.vim'
 Plug 'APZelos/blamer.nvim'
 
@@ -46,7 +47,6 @@ Plug 'joker1007/vim-markdown-quote-syntax'
 " Other 
 Plug 'junegunn/goyo.vim'
 Plug 'voldikss/vim-translate-me'
-Plug 'dyng/ctrlsf.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
 " 插件列表结束

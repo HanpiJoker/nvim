@@ -120,21 +120,6 @@ vmap <silent> <Leader>we <Plug>TranslateWV
 nmap <silent> <Leader>re <Plug>TranslateR
 vmap <silent> <Leader>re <Plug>TranslateRV
 
-" 设置ctrlsf
-let g:ctrlsf_ackprg = 'rg'
-let g:ctrlsf_auto_close = {
-    \ "normal" : 0,
-    \ "compact": 0
-    \}
-let g:ctrlsf_auto_focus = {
-    \ "at": "done",
-    \ "duration_less_than": 1000
-    \ }
-let g:ctrlsf_default_view_mode = 'compact'
-nmap <Leader>sf :CtrlSF<space>
-nmap <Leader>sn <Plug>CtrlSFCwordPath<CR>
-vmap <Leader>sv <Plug>CtrlSFVwordPath<CR>
-
 " 让输入上方，搜索列表在下方
 let $FZF_DEFAULT_OPTS = '--layout=reverse'
 let g:fzf_layout = { 'window': 'call OpenFloatingWin()'  }
@@ -172,16 +157,15 @@ endfunction
 " NOTE: vista need universal-ctags support jansson first. 
 " 1. Install Jansson First.
 " 2. git clone universal-ctags.git and install ctags manuaully
-let g:vista#executives = ['coc', 'ctags', 'vim_lsp']
+let g:vista_default_executive = 'ctags'
 " Declare the command including the executable and options used to generate ctags output
 " " for some certain filetypes.The file path will be appened to your custom command.
 " " For example:
 "
 let g:vista_executive_for = {
-	\'vim': 'vim_lsp',
-	\'c': 'coc',
+	\'c': 'ctags',
 	\'rust': 'coc',
-	\'cpp': 'coc'}
+	\'cpp': 'ctags'}
 " To enable fzf's preview window set g:vista_fzf_preview.
 " The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
 " For example:
@@ -206,9 +190,9 @@ nnoremap <Leader>vt :Vista!!<CR>
 autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsOpen() | execute "normal! :q!\<CR>" | endif
 
 " floaterm keymapping, install neovim-remote remember
+let g:floaterm_autoclose = 2
 nnoremap <leader>ft :FloatermToggle<CR>
 tnoremap <leader>ft <C-\><C-n>:FloatermToggle<CR>
-tnoremap <esc><esc> <C-\><C-n>:FloatermToggle<CR>
 nnoremap <leader>fw :FloatermNew<CR>
 tnoremap <leader>fw <C-\><C-n>:FloatermNew<CR>
 nnoremap <leader>fk :FloatermKill<CR>
@@ -232,3 +216,43 @@ let g:blamer_delay = 1000
 let g:blamer_date_format = '%y/%m/%d'
 let g:blamer_template = '<commit-short>, <committer> -- <summary>'
 highlight Blamer guifg=lightgrey
+
+" easymotion setting
+" disable default mappings
+let g:EasyMotion_do_mapping = 0
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+let g:EasyMotion_prompt = '🔎 {n} >>>'
+
+" <Leader>f{char} to move to {char}
+map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap <Leader><Leader>s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader><Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+
+autocmd User EasyMotionPromptBegin silent! CocDisable
+autocmd User EasyMotionPromptEnd   silent! CocEnable
+
+" FZF funcitong key-mapping
+function! RipgrepFzf(query, fullscreen)
+	let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+	let initial_command = printf(command_fmt, shellescape(a:query))
+	let reload_command = printf(command_fmt, '{q}')
+	let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+	call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+nnoremap <leader>sn :RG <c-r>=expand("<cword>")<cr><cr>
+nnoremap <leader>sf :FZF<CR>
