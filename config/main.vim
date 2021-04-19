@@ -3,6 +3,9 @@ let mapleader=";"
 set mouse=a
 " 开启256色 
 set t_Co=256
+if (has("termguicolors"))
+	set termguicolors
+endif
 set ttimeoutlen=50
 set termguicolors
 " >>

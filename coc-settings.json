@@ -2,6 +2,7 @@
 	"vimlsp.indexes.count": 5,
 	"vimlsp.indexes.gap": 50,
 	"coc.preferences.extensionUpdateCheck": "daily",
+	"coc.preferences.enableFloatHighlight": true,
 	"suggest.enablePreview": true,
 	"suggest.maxPreviewWidth": 50,
 	"suggest.maxCompleteItemCount": 25,
@@ -12,6 +13,7 @@
 	"suggest.minTriggerInputLength": 2,
 	"suggest.acceptSuggestionOnCommitCharacter": true,
 	"suggest.noselect": true,
+	"suggest.floatEnable": true,
 	"suggest.triggerAfterInsertEnter": true,
 	"suggest.enablePreselect": false,
 	"suggest.completionItemKindLabels": {
@@ -87,5 +89,6 @@
 			}
 		}
   },
-  "git.enableGutters": true
+  "git.enableGutters": true,
+  "git.showCommitInFloating": true
 }
