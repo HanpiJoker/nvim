@@ -41,8 +41,8 @@ Plug 'APZelos/blamer.nvim'
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'plasticboy/vim-markdown'
-Plug 'joker1007/vim-markdown-quote-syntax'
+"Plug 'plasticboy/vim-markdown'
+"Plug 'joker1007/vim-markdown-quote-syntax'
 
 " Other 
 Plug 'junegunn/goyo.vim'
@@ -50,9 +50,10 @@ Plug 'voldikss/vim-translate-me'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
 Plug 'navarasu/onedark.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 " 插件列表结束
 call plug#end()
-let g:onedark_style="darker"
+let g:onedark_style="deep"
 colorscheme onedark
 
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/plugin.vim'

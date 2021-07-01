@@ -33,7 +33,7 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 "Air Line Setting
-let g:airline_theme='solarized_flood'
+let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_step = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -44,6 +44,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 0
 let g:airline#extensions#tabline#fnametruncate = 16
 let g:airline#extensions#tabline#fnamecollapse = 2
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#whitespace#enabled = 0
 
 let g:airline_powerline_fonts=1
 let g:airline#extensions#coc#enabled = 1
@@ -153,27 +154,13 @@ function! OpenFloatingWin()
 		\ signcolumn=no
 endfunction
 
-" Vista Setting
-" NOTE: vista need universal-ctags support jansson first. 
-" 1. Install Jansson First.
-" 2. git clone universal-ctags.git and install ctags manuaully
 let g:vista_default_executive = 'ctags'
-" Declare the command including the executable and options used to generate ctags output
-" " for some certain filetypes.The file path will be appened to your custom command.
-" " For example:
-"
 let g:vista_executive_for = {
-	\'c': 'ctags',
+	\'c': 'coc',
 	\'rust': 'coc',
-	\'cpp': 'ctags'}
-" To enable fzf's preview window set g:vista_fzf_preview.
-" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
-" For example:
+	\'cpp': 'coc'}
 let g:vista_fzf_preview = ['right:50%']
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
 let g:vista#renderer#enable_icon = 1
-
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
 let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
@@ -184,7 +171,7 @@ let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista_sidebar_position = 'vertical topleft'
 let g:vista_update_on_text_changed_delay = 10
 let g:vista_cursor_delay = 10
-let g:vista_ignore_kinds = ['prototype']
+"let g:vista_ignore_kinds = ['prototype']
 nnoremap <leader>vf :Vista finder<CR>
 nnoremap <Leader>vt :Vista!!<CR>
 autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsOpen() | execute "normal! :q!\<CR>" | endif
@@ -201,8 +188,6 @@ nnoremap <leader>fp :FloatermPrev<CR>
 tnoremap <leader>fp <C-\><C-n>:FloatermPrev<CR>
 nnoremap <leader>fn :FloatermNext<CR>
 tnoremap <leader>fn <C-\><C-n>:FloatermNext<CR>
-nnoremap <leader>fc :FloatermNew 
-tnoremap <leader>fc <C-\><C-n>:FloatermNew 
 
 " vimlsp setting
 let g:markdown_fenced_languages = [
@@ -256,3 +241,6 @@ endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 nnoremap <leader>sn :RG <c-r>=expand("<cword>")<cr><cr>
 nnoremap <leader>sf :FZF<CR>
+
+" Setting for indent-blankline
+let g:indent_blankline_char = '┆'

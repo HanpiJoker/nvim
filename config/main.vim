@@ -135,7 +135,7 @@ au! BufRead,BufNewFile *.markdown set filetype=markdown
 au! BufRead,BufNewFile *.md set filetype=markdown
 
 "show tab and enter character 
-set list lcs+=tab:\┆\ ,eol:¬
+" set list lcs+=tab:\┆\ ,eol:¬
 
 " set clipboard, install xclip at first
 "let g:clipboard = {
