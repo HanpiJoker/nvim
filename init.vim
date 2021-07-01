@@ -49,8 +49,11 @@ Plug 'junegunn/goyo.vim'
 Plug 'voldikss/vim-translate-me'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
+Plug 'navarasu/onedark.nvim'
 " 插件列表结束
 call plug#end()
+let g:onedark_style="darker"
+colorscheme onedark
 
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/plugin.vim'
 

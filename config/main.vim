@@ -54,8 +54,7 @@ set nofoldenable
 set completeopt=noinsert,menuone,noselect
 
 " 配色方案
-set background=dark
-colorscheme solarized
+"set background=dark
 "colorscheme atom-dark
 " hi Normal ctermbg=NONE
 " >>
