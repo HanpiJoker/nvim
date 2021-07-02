@@ -1,13 +1,12 @@
 " 定义快捷键的前缀，即 <Leader>
 let mapleader=";"
 set mouse=a
-" 开启256色 
+" Enable 256colors and TrueColor
 set t_Co=256
 if (has("termguicolors"))
 	set termguicolors
 endif
 set ttimeoutlen=50
-set termguicolors
 " >>
 " 文件类型侦测
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -22,6 +21,7 @@ set number
 set relativenumber
 " 高亮当前行
 set cursorline cursorcolumn
+set colorcolumn=80,120
 " 禁止折行
 set nowrap
 set sidescroll=1
