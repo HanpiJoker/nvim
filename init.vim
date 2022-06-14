@@ -35,7 +35,7 @@ Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'lilydjwg/fcitx.vim'
+"Plug 'lilydjwg/fcitx.vim'
 Plug 'APZelos/blamer.nvim'
 
 " Markdown
@@ -50,10 +50,13 @@ Plug 'voldikss/vim-translate-me'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
 Plug 'navarasu/onedark.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+Plug 'lukas-reineke/indent-blankline.nvim'
 " 插件列表结束
 call plug#end()
-let g:onedark_style="deep"
+
+let g:onedark_config = {
+			\'style':'darker',
+			\}
 colorscheme onedark
 
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/plugin.vim'
