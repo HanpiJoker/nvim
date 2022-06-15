@@ -50,7 +50,6 @@
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
-	"codeLens.enable": true,
 	"coc.preferences.useQuickfixForLocations": true,
 	//"coc.preferences.formatOnSaveFiletypes": [ "json", "c", "cpp" ],
 	"coc.source.ultisnips.filetypes": [

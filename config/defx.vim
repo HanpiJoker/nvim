@@ -33,6 +33,9 @@ call defx#custom#column('git', {
 	\   }
 	\ })
 
+autocmd FileType defx set norelativenumber
+autocmd FileType defx set nonumber
+
 " call defx#custom#column('filename', { 'min_width': 5, 'max_width': 55 })
 
 " defx-icons plugin

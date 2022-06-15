@@ -161,10 +161,7 @@ let g:vista_executive_for = {
 	\'cpp': 'coc'}
 let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
 let g:vista_stay_on_open = 0
 let g:vista_echo_cursor_strategy = 'scroll'
@@ -241,6 +238,3 @@ endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 nnoremap <leader>sn :RG <c-r>=expand("<cword>")<cr><cr>
 nnoremap <leader>sf :FZF<CR>
-
-" Setting for indent-blankline
-let g:indent_blankline_char = '┆'

@@ -50,7 +50,6 @@ Plug 'voldikss/vim-translate-me'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
 Plug 'navarasu/onedark.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
 " 插件列表结束
 call plug#end()
 
