@@ -2,6 +2,16 @@
 	"vimlsp.indexes.count": 5,
 	"vimlsp.indexes.gap": 50,
 	"coc.preferences.extensionUpdateCheck": "daily",
+	"coc.preferences.useQuickfixForLocations": true,
+	"coc.preferences.formatOnSaveFiletypes": [
+		"json",
+		"c",
+		"cpp",
+		"rust"
+	],
+	"coc.source.ultisnips.filetypes": [
+		"tex"
+	],
 	"suggest.enablePreview": true,
 	"suggest.maxCompleteItemCount": 25,
 	"suggest.labelMaxLength": 50,
@@ -50,11 +60,8 @@
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
-	"coc.preferences.useQuickfixForLocations": true,
-	//"coc.preferences.formatOnSaveFiletypes": [ "json", "c", "cpp" ],
-	"coc.source.ultisnips.filetypes": [
-		"tex"
-	],
+	"git.enableGutters": true,
+	"git.showCommitInFloating": true,
 	"rust-analyzer.server.path": "/usr/sbin/rust-analyzer",
 	"rust-analyzer.updates.channel": "nightly",
 	"languageserver": {
@@ -76,13 +83,19 @@
 				".hg/"
 			],
 			"initializationOptions": {
-				"index": { "threads" : 6 },
-				"client": { "snippetSupport": true },
-				"cache": { "directory": "/tmp/ccls-cache" },
-				"highlight": { "lsRanges" : true }
+				"index": {
+					"threads": 14
+				},
+				"client": {
+					"snippetSupport": true
+				},
+				"cache": {
+					"directory": "/tmp/ccls-cache"
+				},
+				"highlight": {
+					"lsRanges": true
+				}
 			}
 		}
-  },
-  "git.enableGutters": true,
-  "git.showCommitInFloating": true
+	}
 }

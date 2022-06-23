@@ -3,3 +3,6 @@
 
 # plugged
 plugged/
+
+# autoload
+autoload/plug.vim.old
