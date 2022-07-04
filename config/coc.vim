@@ -37,20 +37,9 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd  :call CocAction('jumpDefinition', 'drop')<CR>
-nmap <silent> gds :call CocAction('jumpDefinition', 'split')<CR>
-nmap <silent> gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
-
 nmap <silent> gy  :call CocAction('jumpTypeDefinition', 'drop')<CR>
-nmap <silent> gys :call CocAction('jumpTypeDefinition', 'split')<CR>
-nmap <silent> gyv :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
-
 nmap <silent> gi  :call CocAction('jumpImplementation', 'drop')<CR>
-nmap <silent> gis :call CocAction('jumpImplementation', 'split')<CR>
-nmap <silent> giv :call CocAction('jumpImplementation', 'vsplit')<CR>
-
 nmap <silent> gr  :call CocAction('jumpReferences', 'drop')<CR>
-nmap <silent> grs :call CocAction('jumpReferences', 'split')<CR>
-nmap <silent> grv :call CocAction('jumpReferences', 'vsplit')<CR>
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
