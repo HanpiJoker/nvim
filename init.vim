@@ -35,6 +35,7 @@ Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'antoinemadec/coc-fzf'
 "Plug 'lilydjwg/fcitx.vim'
 Plug 'APZelos/blamer.nvim'
 
