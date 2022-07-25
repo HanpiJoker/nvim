@@ -47,7 +47,7 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 
 " Other 
 Plug 'junegunn/goyo.vim'
-Plug 'voldikss/vim-translate-me'
+Plug 'voldikss/vim-translator'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
 Plug 'navarasu/onedark.nvim'

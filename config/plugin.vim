@@ -120,6 +120,8 @@ vmap <silent> <Leader>we <Plug>TranslateWV
 " Leader>r 替换光标下的文本为翻译内容
 nmap <silent> <Leader>re <Plug>TranslateR
 vmap <silent> <Leader>re <Plug>TranslateRV
+let g:translator_window_max_height = 0.9
+let g:translator_window_max_width = 0.9
 
 " 让输入上方，搜索列表在下方
 let $FZF_DEFAULT_OPTS = '--layout=reverse'
@@ -139,10 +141,17 @@ let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista_sidebar_position = 'vertical topleft'
 let g:vista_update_on_text_changed_delay = 10
 let g:vista_cursor_delay = 10
-"let g:vista_ignore_kinds = ['prototype']
+let g:vista_ignore_kinds = ['Variable']
 nnoremap <leader>vf :Vista finder<CR>
 nnoremap <Leader>vt :Vista!!<CR>
 autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsOpen() | execute "normal! :q!\<CR>" | endif
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " floaterm keymapping, install neovim-remote remember
 let g:floaterm_autoclose = 2
