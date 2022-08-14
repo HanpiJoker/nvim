@@ -127,7 +127,7 @@ let g:translator_window_max_width = 0.9
 let $FZF_DEFAULT_OPTS = '--layout=reverse'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-let g:vista_default_executive = 'ctags'
+let g:vista_default_executive = 'coc'
 let g:vista_executive_for = {
 	\'c': 'coc',
 	\'rust': 'coc',
