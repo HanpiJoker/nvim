@@ -12,7 +12,6 @@
 	"coc.source.ultisnips.filetypes": [
 		"tex"
 	],
-	"suggest.enablePreview": true,
 	"suggest.maxCompleteItemCount": 25,
 	"suggest.labelMaxLength": 50,
 	"suggest.detailMaxLength": 50,
@@ -21,7 +20,6 @@
 	"suggest.minTriggerInputLength": 2,
 	"suggest.acceptSuggestionOnCommitCharacter": true,
 	"suggest.noselect": true,
-	"suggest.floatEnable": true,
 	"suggest.triggerAfterInsertEnter": true,
 	"suggest.enablePreselect": false,
 	"diagnostic.errorSign": "\uf467",
@@ -37,37 +35,14 @@
 	"git.showCommitInFloating": true,
 	"rust-analyzer.server.path": "/usr/sbin/rust-analyzer",
 	"rust-analyzer.updates.channel": "nightly",
-	"languageserver": {
-		"ccls": {
-			"command": "ccls",
-			"filetypes": [
-				"c",
-				"cpp",
-				"cuda",
-				"objc",
-				"objcpp"
-			],
-			"rootPatterns": [
-				".ccls",
-				"compile_commands.json",
-				".vim/",
-				".git/",
-				".hg/"
-			],
-			"initializationOptions": {
-				"index": {
-					"threads": 14
-				},
-				"client": {
-					"snippetSupport": true
-				},
-				"cache": {
-					"directory": "/tmp/ccls-cache"
-				},
-				"highlight": {
-					"lsRanges": true
-				}
-			}
-		}
-	}
+	"clangd.checkUpdates": true,
+	"clangd.arguments": [
+		"--background-index",
+		"-j=12",
+		"--clang-tidy",
+		"--all-scopes-completion",
+		"--completion-style=detailed",
+		"--header-insertion=iwyu",
+		"--pch-storage=disk"
+	]
 }

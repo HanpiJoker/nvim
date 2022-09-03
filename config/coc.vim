@@ -149,4 +149,5 @@ let g:coc_global_extensions = [
 	\ 'coc-floaterm',
 	\ 'coc-actions',
 	\ 'coc-rust-analyzer',
+	\ 'coc-clangd',
 	\ 'coc-json']
