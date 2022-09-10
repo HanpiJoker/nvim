@@ -6,7 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Error Check
 " Plug 'dense-analysis/ale'
 " C++语法高亮
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
 " 多光标
 Plug 'terryma/vim-multiple-cursors'
 " 智能注释
@@ -23,16 +23,13 @@ Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 " 自动格式化代码
-Plug 'Chiel92/vim-autoformat'
+"Plug 'Chiel92/vim-autoformat'
 " Status Line Plugin
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 " 项目效率插件
 "Plug 'liuchengxu/vista.vim'
-Plug 'mbbill/undotree'
-"Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'kristijanhusak/defx-icons'
-"Plug 'kristijanhusak/defx-git'
+"Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
@@ -40,13 +37,13 @@ Plug 'antoinemadec/coc-fzf'
 Plug 'APZelos/blamer.nvim'
 
 " Markdown
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
+"Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 "Plug 'plasticboy/vim-markdown'
 "Plug 'joker1007/vim-markdown-quote-syntax'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 " Other 
-Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/goyo.vim'
 Plug 'voldikss/vim-translator'
 Plug 'voldikss/vim-floaterm'
 Plug 'ryanoasis/vim-devicons'
@@ -64,7 +61,3 @@ execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/plugin.vim'
 if filereadable(fnamemodify(expand('<sfile>'), ':h').'/config/coc.vim')
     execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/coc.vim'
 endif
-
-"if filereadable(fnamemodify(expand('<sfile>'), ':h').'/config/defx.vim')
-"    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/defx.vim'
-"endif
