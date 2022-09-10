@@ -28,11 +28,11 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 " 项目效率插件
-Plug 'liuchengxu/vista.vim'
+"Plug 'liuchengxu/vista.vim'
 Plug 'mbbill/undotree'
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'kristijanhusak/defx-icons'
-Plug 'kristijanhusak/defx-git'
+"Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'kristijanhusak/defx-icons'
+"Plug 'kristijanhusak/defx-git'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf'
@@ -61,15 +61,10 @@ colorscheme onedark
 
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/plugin.vim'
 
-" 补全菜单颜色
-" highlight Pmenu ctermfg=33 ctermbg=7 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-" highlight PmenuSel ctermfg=51 ctermbg=61 guifg=#AFD700 guibg=#106900
-
 if filereadable(fnamemodify(expand('<sfile>'), ':h').'/config/coc.vim')
     execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/coc.vim'
 endif
 
-if filereadable(fnamemodify(expand('<sfile>'), ':h').'/config/defx.vim')
-    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/defx.vim'
-endif
+"if filereadable(fnamemodify(expand('<sfile>'), ':h').'/config/defx.vim')
+"    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/defx.vim'
+"endif

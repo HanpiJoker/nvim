@@ -1,6 +1,7 @@
 {
 	"vimlsp.indexes.count": 5,
 	"vimlsp.indexes.gap": 50,
+	"outline.sortBy": "position",
 	"coc.preferences.extensionUpdateCheck": "daily",
 	"coc.preferences.useQuickfixForLocations": true,
 	"coc.preferences.formatOnSaveFiletypes": [
