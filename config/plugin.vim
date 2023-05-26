@@ -5,34 +5,80 @@ source $VIMRUNTIME/ftplugin/man.vim
 " 定义:Man命令查看各类man信息的快捷键
 nmap <Leader>man :Man 3 <C-R>=expand("<cword>")<CR><CR> 
 
-" 快捷键
-map <SPACE> <Plug>(wildfire-fuel)
-vmap <S-SPACE> <Plug>(wildfire-water)
 
-" 适用于哪些结对符
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  linuxsty.vim Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>a :LinuxCodingStyle<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  wildfire Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" This selects the next closest text object.
+map <SPACE> <Plug>(wildfire-fuel)
+
+" This selects the previous closest text object.
+vmap <C-SPACE> <Plug>(wildfire-water)
+
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
 
-" Nerdcommenter 配置
-let g:NERDSpaceDelims=1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Nerdcommenter Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
 
-" auto-pairs 配置
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" auto pairs Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
-" vim-autoformat
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-autoformat Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:formatdef_harttle = '"astyle --style=kr --pad-oper"'
 let g:formatters_cpp = ['harttle']
 let g:formatters_c = ['harttle']
 let g:formatters_java = ['harttle']
-" Multip Cursor 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Multip Cursor Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Default key mapping  
 let g:multi_cursor_next_key='<C-n>'  
 let g:multi_cursor_prev_key='<C-p>' 
 let g:multi_cursor_skip_key='<C-x>'  
 let g:multi_cursor_quit_key='<Esc>'
 
-"Air Line Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Air Line Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_step = ' '
@@ -49,7 +95,9 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_powerline_fonts=1
 let g:airline#extensions#coc#enabled = 1
 
-" Ale Error Check
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ale Error Check Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "始终开启标志列
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
@@ -65,7 +113,9 @@ let g:ale_linters = {
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 
-" === MarkdownPreview
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MarkdownPreview Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
@@ -89,28 +139,40 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 
-" === Vim Table Mode
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Table Mode Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " <Leader>tdd 删除一行
 " <Leader>tdc 删除一列
 nnoremap <leader>tm :TableModeToggle<CR>
-" === Vim MarkDown
-"let g:markdown_enable_conceal = ""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim MarkDown Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]
+
 let g:markdown_quote_syntax_on_filetypes = ['text']
 set conceallevel=2
 
-" === UndoTree
-function! OpenUndoTree()
-    UndotreeToggle 
-endfunction
-nnoremap <leader>ud :call OpenUndoTree()<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" undotree Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>ud :UndotreeToggle<CR>
 let g:undotree_WindowLayout = 2
 set undodir=~/.undodir/
 set undofile
 
-" === Goyo
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Goyo Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>go :Goyo<CR>
 
-" === vim-translate-me
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-translate-me Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " <Leader>t 翻译光标下的文本，在命令行回显
 nmap <silent> <Leader>te <Plug>Translate
 vmap <silent> <Leader>te <Plug>TranslateV
@@ -123,10 +185,9 @@ vmap <silent> <Leader>re <Plug>TranslateRV
 let g:translator_window_max_height = 0.9
 let g:translator_window_max_width = 0.9
 
-" 让输入上方，搜索列表在下方
-let $FZF_DEFAULT_OPTS = '--layout=reverse'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vista Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:vista_default_executive = 'coc'
 "let g:vista_executive_for = {
 "	\'c': 'coc',
@@ -153,6 +214,10 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 "
 "autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" floaterm Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " floaterm keymapping, install neovim-remote remember
 let g:floaterm_autoclose = 2
 nnoremap <leader>ft :FloatermToggle<CR>
@@ -166,12 +231,9 @@ tnoremap <leader>fp <C-\><C-n>:FloatermPrev<CR>
 nnoremap <leader>fn :FloatermNext<CR>
 tnoremap <leader>fn <C-\><C-n>:FloatermNext<CR>
 
-" vimlsp setting
-let g:markdown_fenced_languages = [
-      \ 'vim',
-      \ 'help'
-      \]
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" blamer.vim Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " blamer.nvim
 let g:blamer_enabled = 1
 let g:blamer_delay = 1000
@@ -179,7 +241,9 @@ let g:blamer_date_format = '%y/%m/%d'
 let g:blamer_template = '<commit-short>, <committer> -- <summary>'
 highlight Blamer guifg=lightgrey
 
-" easymotion setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" easymotion Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " disable default mappings
 let g:EasyMotion_do_mapping = 0
 
@@ -206,7 +270,13 @@ nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 autocmd User EasyMotionPromptBegin silent! CocDisable
 autocmd User EasyMotionPromptEnd   silent! CocEnable
 
-" FZF funcitong key-mapping
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FZF funciton key-mapping Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 让输入上方，搜索列表在下方
+let $FZF_DEFAULT_OPTS = '--layout=reverse'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
 function! RipgrepFzf(query, fullscreen)
 	let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
 	let initial_command = printf(command_fmt, shellescape(a:query))

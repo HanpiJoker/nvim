@@ -24,6 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 " 自动格式化代码
 "Plug 'Chiel92/vim-autoformat'
+Plug 'vivien/vim-linux-coding-style'
 " Status Line Plugin
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
