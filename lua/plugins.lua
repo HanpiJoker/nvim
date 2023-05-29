@@ -23,7 +23,7 @@ require('lazy').setup({
 	},
 	{
 		'nvim-lualine/lualine.nvim',
-		dependencies = 'nvim-lua/plenary.nvim',
+		dependencies = 'nvim-tree/nvim-web-devicons',
 		opts = {
 			options = { theme = 'onedark' }
 		},
@@ -32,6 +32,19 @@ require('lazy').setup({
 		'akinsho/bufferline.nvim',
 		version = '*', dependencies = 'nvim-tree/nvim-web-devicons',
 		opts = { options = { separator_style = 'slant' } }, -- enable bufferline
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
 	},
 	{
 		'nvim-telescope/telescope.nvim',

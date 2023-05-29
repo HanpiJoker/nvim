@@ -15,6 +15,36 @@ cmp.setup({
 			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
+	window = {
+		documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
+	},
+	formatting = {
+		fields = {'menu', 'abbr', 'kind'},
+		format = function(entry, item)
+			local ELLIPSIS_CHAR = '…'
+			local MAX_LABEL_WIDTH = 40
+			local MIN_LABEL_WIDTH = 30
+			local menu_icon = {
+				nvim_lsp = 'λ',
+				luasnip = '⋗',
+				buffer = 'Ω',
+				path = '🖫',
+			}
+
+			local label = item.abbr
+			local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+			if truncated_label ~= label then
+				item.abbr = truncated_label .. ELLIPSIS_CHAR
+			elseif string.len(label) < MIN_LABEL_WIDTH then
+				local padding = string.rep(' ', MIN_LABEL_WIDTH - string.len(label))
+				item.abbr = label .. padding
+			end
+
+			item.menu = menu_icon[entry.source.name]
+			return item
+		end,
+	},
 	mapping = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
