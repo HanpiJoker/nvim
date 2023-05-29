@@ -37,7 +37,7 @@ for key, value in pairs(options) do
 end
 
 -- set clipboard, ubuntu need install xclip, wsl2 need install win32yank
-if vim.fn.has('wsl') then
+if vim.fn.has('wsl') == 1 then
 	vim.g.clipboard = {
 		name = 'win32yank-wsl',
 		copy = {
