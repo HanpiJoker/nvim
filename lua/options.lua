@@ -50,7 +50,7 @@ if vim.fn.has('wsl') == 1 then
 		},
 		cache_enabled = 0,
 	}
-else
+elseif vim.fn.executable('xclip') == 1 then
 	vim.g.clipboard = {
 		name = 'xclip-ubuntu',
 		copy = {
