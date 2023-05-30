@@ -9,17 +9,20 @@ require('lazy').setup({
 	},
 	{
 		'numToStr/FTerm.nvim',
-		lazy = true,
+		event = 'VeryLazy',
 		opts = {
 			boarder = 'double'
 		},
 		keys = {
 			{ '<leader>ft', '<CMD>lua require(\'FTerm\').toggle()<CR>', mode = 'n', desc = 'FloatTerm Toggle' },
 			{ '<leader>ft', '<C-\\><C-n><CMD>lua require(\'FTerm\').toggle()<CR>', mode = 't', desc = 'FloatTerm Toggle' },
+			{ '<leader>fg', '<CMD>lua require(\'FTerm\'):new({cmd = \'gitui\'}):toggle()<CR>', mode = 'n', desc = 'FloatTerm GitUI Toggle' },
+			{ '<leader>fb', '<CMD>lua require(\'FTerm\'):new({cmd = \'btop\'}):toggle()<CR>', mode = 'n', desc = 'FloatTerm BTop Toggle' },
 		},
-		config = function()
-			require('plugin.fterm')
-		end
+	},
+	{
+		'nvim-tree/nvim-web-devicons',
+		lazy = true,
 	},
 	{
 		'nvim-lualine/lualine.nvim',
@@ -65,12 +68,14 @@ require('lazy').setup({
 	},
 	{
 		'windwp/nvim-autopairs',
+		event = 'VeryLazy',
 		config = function()
 			require('plugin.autopairs')
 		end
 	},
 	{
 		'nvim-tree/nvim-tree.lua',
+		lazy = true,
 		keys = {
 			{ '<leader>fl', '<CMD>:NvimTreeToggle<CR>', desc = 'File Explorer Toggle' }
 		},
@@ -101,6 +106,7 @@ require('lazy').setup({
 	},
 	{
 		'simrat39/symbols-outline.nvim',
+		lazy = true,
 		keys = {
 			{ '<leader>vt', '<CMD>:SymbolsOutline<CR>', desc = 'Symbol Outline Toggle' }
 		},
@@ -134,12 +140,15 @@ require('lazy').setup({
 			require('plugin.mason_lsp')
 		end
 	},
-	'hrsh7th/cmp-nvim-lsp', -- { name = nvim_lsp }
-	'hrsh7th/cmp-buffer',   -- { name = 'buffer' },
-	'hrsh7th/cmp-path',     -- { name = 'path' }
-	'hrsh7th/cmp-cmdline',  -- { name = 'cmdline' }
 	{
 		'hrsh7th/nvim-cmp',
+		event = 'InsertEnter',
+		dependencies = {
+			'hrsh7th/cmp-nvim-lsp', -- { name = nvim_lsp }
+			'hrsh7th/cmp-buffer',   -- { name = 'buffer' },
+			'hrsh7th/cmp-path',     -- { name = 'path' }
+			'hrsh7th/cmp-cmdline',  -- { name = 'cmdline' }
+		},
 		config = function()
 			require('plugin.cmp')
 		end
