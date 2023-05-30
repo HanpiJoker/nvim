@@ -90,19 +90,6 @@ require('lazy').setup({
 			})
 		end
 	},
-	{
-		'kdheepak/lazygit.nvim',
-		-- optional for floating window border decoration
-		keys = {
-			{ '<leader>lg', '<CMD>:LazyGit<CR>', desc = 'Lazy Git Toggle' }
-		},
-		config = function()
-			vim.g.lazygit_floating_window_scaling_factor = 0.6
-		end,
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-		},
-	},
 
 	---- LSP Plugins
 	{
