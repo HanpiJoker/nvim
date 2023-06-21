@@ -16,7 +16,7 @@ require('lazy').setup({
 		keys = {
 			{ '<leader>ft', '<CMD>lua require(\'FTerm\').toggle()<CR>', mode = 'n', desc = 'FloatTerm Toggle' },
 			{ '<leader>ft', '<C-\\><C-n><CMD>lua require(\'FTerm\').toggle()<CR>', mode = 't', desc = 'FloatTerm Toggle' },
-			{ '<leader>fg', '<CMD>lua require(\'FTerm\'):new({cmd = \'gitui\'}):toggle()<CR>', mode = 'n', desc = 'FloatTerm GitUI Toggle' },
+			{ '<leader>fg', '<CMD>lua require(\'FTerm\'):new({cmd = \'gitui -t mocha.ron\'}):toggle()<CR>', mode = 'n', desc = 'FloatTerm GitUI Toggle' },
 			{ '<leader>fb', '<CMD>lua require(\'FTerm\'):new({cmd = \'btop\'}):toggle()<CR>', mode = 'n', desc = 'FloatTerm BTop Toggle' },
 		},
 	},
@@ -95,6 +95,20 @@ require('lazy').setup({
 			})
 		end
 	},
+	{
+		"JuanZoran/Trans.nvim",
+		build = function () require'Trans'.install() end,
+		lazy = true,
+		keys = {
+			{ '<leader>te', mode = { 'n', 'x' }, '<Cmd>Translate<CR>', desc = ' Translate' },
+			{ '<leader>tp', mode = { 'n', 'x' }, '<Cmd>TransPlay<CR>', desc = ' Auto Play' },
+			{ '<leader>ti', '<Cmd>TranslateInput<CR>', desc = ' Translate From Input' },
+		},
+		dependencies = { 'kkharji/sqlite.lua', },
+		opts = {
+			-- your configuration there
+		}
+	},
 
 	---- LSP Plugins
 	{
@@ -162,4 +176,13 @@ require('lazy').setup({
 		end
 	},
 	'saadparwaiz1/cmp_luasnip',
+	{
+		'folke/trouble.nvim',
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	},
 })
