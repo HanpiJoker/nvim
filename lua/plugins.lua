@@ -16,25 +16,25 @@ require("lazy").setup({
 		keys = {
 			{
 				"<leader>ft",
-				"<CMD>lua require('FTerm').toggle()<CR>",
+				"<Cmd>lua require('FTerm').toggle()<CR>",
 				mode = "n",
 				desc = "FloatTerm Toggle",
 			},
 			{
 				"<leader>ft",
-				"<C-\\><C-n><CMD>lua require('FTerm').toggle()<CR>",
+				"<C-\\><C-n><Cmd>lua require('FTerm').toggle()<CR>",
 				mode = "t",
 				desc = "FloatTerm Toggle",
 			},
 			{
 				"<leader>fg",
-				"<CMD>lua require('FTerm'):new({cmd = 'gitui -t mocha.ron'}):toggle()<CR>",
+				"<Cmd>lua require('FTerm'):new({cmd = 'gitui -t mocha.ron'}):toggle()<CR>",
 				mode = "n",
 				desc = "FloatTerm GitUI Toggle",
 			},
 			{
 				"<leader>fb",
-				"<CMD>lua require('FTerm'):new({cmd = 'btop'}):toggle()<CR>",
+				"<Cmd>lua require('FTerm'):new({cmd = 'btop'}):toggle()<CR>",
 				mode = "n",
 				desc = "FloatTerm BTop Toggle",
 			},
@@ -72,7 +72,10 @@ require("lazy").setup({
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"debugloop/telescope-undo.nvim",
+		},
 		config = function()
 			require("plugin.telescope")
 		end,
@@ -98,7 +101,7 @@ require("lazy").setup({
 		"nvim-tree/nvim-tree.lua",
 		lazy = true,
 		keys = {
-			{ "<leader>fl", "<CMD>:NvimTreeToggle<CR>", desc = "File Explorer Toggle" },
+			{ "<leader>fl", "<Cmd>:NvimTreeToggle<CR>", desc = "File Explorer Toggle" },
 		},
 		config = function()
 			require("nvim-tree").setup({
@@ -132,6 +135,20 @@ require("lazy").setup({
 			-- your configuration there
 		},
 	},
+	{
+		'nvim-pack/nvim-spectre',
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>S", mode = { "n" }, "<Cmd>lua require('spectre').open()<CR>", desc = "Open Spectre" },
+			{ "<leader>sw", mode = { "n", "v" }, "<Cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = "Search current word" },
+			{ "<leader>sp", mode = { "n" }, "<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>", desc = "Search on current file" },
+		},
+		config = function()
+			require("spectre").setup()
+		end,
+	},
 
 	---- LSP Plugins
 	{
@@ -145,7 +162,7 @@ require("lazy").setup({
 		"simrat39/symbols-outline.nvim",
 		lazy = true,
 		keys = {
-			{ "<leader>vt", "<CMD>:SymbolsOutline<CR>", desc = "Symbol Outline Toggle" },
+			{ "<leader>vt", "<Cmd>:SymbolsOutline<CR>", desc = "Symbol Outline Toggle" },
 		},
 		config = function()
 			require("symbols-outline").setup({
