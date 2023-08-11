@@ -26,6 +26,8 @@ local options = {
 	foldenable = false,
 
 	cindent = true,
+	undofile = true,
+	undodir = "/home/cambricon/.local/state/nvim/undodir"
 }
 
 vim.g.loaded_netrw = 1

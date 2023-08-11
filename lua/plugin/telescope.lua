@@ -1,8 +1,6 @@
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 
-telescope.load_extension('undo')
-
 telescope.setup({
 	extensions = {
 		undo = {
@@ -27,6 +25,8 @@ telescope.setup({
 		},
 	},
 })
+
+telescope.load_extension('undo')
 
 vim.keymap.set('n', '<leader>rf', builtin.find_files)
 vim.keymap.set('n', '<leader>rg', builtin.grep_string)
