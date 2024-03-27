@@ -7,7 +7,7 @@ lspconfig.clangd.setup({
 	capabilities = capabilities,
 })
 
-lspconfig.jedi_language_server.setup({
+lspconfig.pylsp.setup({
 	capabilities = capabilities,
 })
 
