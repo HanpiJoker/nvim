@@ -191,7 +191,7 @@ require("lazy").setup({
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "jsonls" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "jsonls", "bashls", "pylsp" },
 			})
 		end,
 	},
