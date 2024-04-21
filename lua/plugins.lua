@@ -232,4 +232,28 @@ require("lazy").setup({
 			-- refer to the configuration section below
 		},
 	},
+
+	{
+		"danymat/neogen",
+		config = function ()
+			require('neogen').setup({
+				snippet_engine = "luasnip",
+				languages = {
+					['cpp.doxygen'] = require('neogen.configurations.cpp'),
+					['c.doxygen'] = require('neogen.configurations.c')
+				}
+			})
+		end,
+	},
+	{
+		'numToStr/Comment.nvim',
+		lazy = false,
+		config = function ()
+			require('Comment').setup({
+				padding = true,
+
+
+			})
+		end
+	}
 })
