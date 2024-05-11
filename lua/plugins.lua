@@ -74,10 +74,15 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"debugloop/telescope-undo.nvim",
+			"benfowler/telescope-luasnip.nvim",
 		},
 		config = function()
 			require("plugin.telescope")
 		end,
+	},
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = 'make'
 	},
 	{
 		"kylechui/nvim-surround",
