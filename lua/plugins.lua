@@ -8,35 +8,34 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"numToStr/FTerm.nvim",
-		event = "VeryLazy",
+		'akinsho/toggleterm.nvim',
 		opts = {
-			boarder = "double",
+			start_in_insert = true,
+			shade_terminals = false,
+			size = function(term)
+				if term.direction == "horizontal" then
+					return 15
+				elseif term.direction == "vertical" then
+					return vim.o.columns * 0.4
+				end
+			end,
+			float_opts = {
+				border = 'double',
+				title_pos = 'center'
+			},
 		},
 		keys = {
 			{
 				"<leader>ft",
-				"<Cmd>lua require('FTerm').toggle()<CR>",
-				mode = "n",
-				desc = "FloatTerm Toggle",
-			},
-			{
-				"<leader>ft",
-				"<C-\\><C-n><Cmd>lua require('FTerm').toggle()<CR>",
-				mode = "t",
-				desc = "FloatTerm Toggle",
+				"<Cmd>ToggleTerm direction=float<CR>",
+				mode = {"n", "t"},
+				desc = "ToggleTerm Toggle",
 			},
 			{
 				"<leader>fg",
-				"<Cmd>lua require('FTerm'):new({cmd = 'gitui -t mocha.ron'}):toggle()<CR>",
-				mode = "n",
-				desc = "FloatTerm GitUI Toggle",
-			},
-			{
-				"<leader>fb",
-				"<Cmd>lua require('FTerm'):new({cmd = 'btop'}):toggle()<CR>",
-				mode = "n",
-				desc = "FloatTerm BTop Toggle",
+				"<Cmd>lua require('toggleterm.terminal').Terminal:new({cmd='gitui -t mocha.ron', hidden=true, direction='float'}):toggle()<CR>",
+				mode = {"n", "t"},
+				desc = "ToggleTerm Toggle GitUI",
 			},
 		},
 	},
@@ -131,9 +130,7 @@ require("lazy").setup({
 			{ "<leader>ti", "<Cmd>TranslateInput<CR>", desc = " Translate From Input" },
 		},
 		dependencies = { "kkharji/sqlite.lua" },
-		opts = {
-			-- your configuration there
-		},
+		config = true,
 	},
 	{
 		'nvim-pack/nvim-spectre',
@@ -226,11 +223,7 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		config = true,
 	},
 
 	{
@@ -249,11 +242,7 @@ require("lazy").setup({
 		'numToStr/Comment.nvim',
 		lazy = false,
 		config = function ()
-			require('Comment').setup({
-				padding = true,
-
-
-			})
+			require('Comment').setup({ })
 		end
 	}
 })
