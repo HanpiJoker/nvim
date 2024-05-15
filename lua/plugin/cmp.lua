@@ -1,35 +1,8 @@
 -- Set up nvim-cmp.
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
+local lspkind = require('lspkind')
 local luasnip = require('luasnip')
-
-local kind_icons = {
-  Text = "",
-  Method = "󰆧",
-  Function = "󰊕",
-  Constructor = "",
-  Field = "󰇽",
-  Variable = "󰂡",
-  Class = "󰠱",
-  Interface = "",
-  Module = "",
-  Property = "󰜢",
-  Unit = "",
-  Value = "󰎠",
-  Enum = "",
-  Keyword = "󰌋",
-  Snippet = "",
-  Color = "󰏘",
-  File = "󰈙",
-  Reference = "",
-  Folder = "󰉋",
-  EnumMember = "",
-  Constant = "󰏿",
-  Struct = "",
-  Event = "",
-  Operator = "󰆕",
-  TypeParameter = "󰅲",
-}
 
 cmp.setup({
 	snippet = {
@@ -43,19 +16,18 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 	},
 	formatting = {
-		format = function(entry, vim_item)
-			-- Kind icons
-			vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
-			-- Source
-			vim_item.menu = ({
+		format = lspkind.cmp_format({
+			mode = "symbol_text",
+			menu = ({
 				buffer = "[Buffer]",
 				nvim_lsp = "[LSP]",
 				luasnip = "[LuaSnip]",
 				nvim_lua = "[Lua]",
 				latex_symbols = "[LaTeX]",
-			})[entry.source.name]
-			return vim_item
-		end
+			}),
+
+			maxwidth = 30,
+		}),
 	},
 	mapping = {
 		['<CR>'] = cmp.mapping(function(fallback)
