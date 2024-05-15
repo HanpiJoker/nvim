@@ -211,6 +211,8 @@ require("lazy").setup({
 			"hrsh7th/cmp-buffer", -- { name = 'buffer' },
 			"hrsh7th/cmp-path", -- { name = 'path' }
 			"hrsh7th/cmp-cmdline", -- { name = 'cmdline' }
+			'onsails/lspkind.nvim',
+			"petertriho/cmp-git",
 		},
 		config = function()
 			require("plugin.cmp")
@@ -249,5 +251,18 @@ require("lazy").setup({
 		config = function ()
 			require('Comment').setup({ })
 		end
-	}
+	},
+	{
+		'lewis6991/gitsigns.nvim',
+		config = function ()
+			require('gitsigns').setup()
+		end
+	},
+	{
+		'ggandor/leap.nvim',
+		dependencies = "tpope/vim-repeat",
+		config = function ()
+			require('leap').create_default_mappings()
+		end
+	},
 })

@@ -3,6 +3,34 @@ local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
+local kind_icons = {
+  Text = "",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰇽",
+  Variable = "󰂡",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "󰅲",
+}
+
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
@@ -15,30 +43,19 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 	},
 	formatting = {
-		fields = {'menu', 'abbr', 'kind'},
-		format = function(entry, item)
-			local ELLIPSIS_CHAR = '…'
-			local MAX_LABEL_WIDTH = 40
-			local MIN_LABEL_WIDTH = 30
-			local menu_icon = {
-				nvim_lsp = 'λ',
-				luasnip = '⋗',
-				buffer = 'Ω',
-				path = '🖫',
-			}
-
-			local label = item.abbr
-			local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
-			if truncated_label ~= label then
-				item.abbr = truncated_label .. ELLIPSIS_CHAR
-			elseif string.len(label) < MIN_LABEL_WIDTH then
-				local padding = string.rep(' ', MIN_LABEL_WIDTH - string.len(label))
-				item.abbr = label .. padding
-			end
-
-			item.menu = menu_icon[entry.source.name]
-			return item
-		end,
+		format = function(entry, vim_item)
+			-- Kind icons
+			vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+			-- Source
+			vim_item.menu = ({
+				buffer = "[Buffer]",
+				nvim_lsp = "[LSP]",
+				luasnip = "[LuaSnip]",
+				nvim_lua = "[Lua]",
+				latex_symbols = "[LaTeX]",
+			})[entry.source.name]
+			return vim_item
+		end
 	},
 	mapping = {
 		['<CR>'] = cmp.mapping(function(fallback)
@@ -85,25 +102,37 @@ cmp.setup({
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
-	sources = {
-		{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-		{ name = 'buffer' },
-	},
+	sources = cmp.config.sources(
+		{
+			{ name = 'git' },
+		},
+		{
+			{ name = 'buffer' },
+		}
+	)
 })
+require("cmp_git").setup()
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
-		{ name = 'buffer' },
-	},
+		{ name = 'buffer' }
+	}
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-	sources = {
-		{ name = 'path' },
-		{ name = 'cmdline' },
-	}
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources(
+		{
+			{ name = 'path' }
+		},
+		{
+			{ name = 'cmdline' }
+		}
+	),
+	matching = { disallow_symbol_nonprefix_matching = false }
 })
 
 cmp.event:on(
