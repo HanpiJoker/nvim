@@ -17,16 +17,10 @@ cmp.setup({
 	},
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "symbol_text",
-			menu = ({
-				buffer = "[Buffer]",
-				nvim_lsp = "[LSP]",
-				luasnip = "[LuaSnip]",
-				nvim_lua = "[Lua]",
-				latex_symbols = "[LaTeX]",
-			}),
-
+			mode = "symbol",
 			maxwidth = 30,
+			ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+			show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 		}),
 	},
 	mapping = {
