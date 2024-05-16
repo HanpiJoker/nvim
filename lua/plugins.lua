@@ -8,7 +8,7 @@ require("lazy").setup({
 		end,
 	},
 	{
-		'akinsho/toggleterm.nvim',
+		"akinsho/toggleterm.nvim",
 		opts = {
 			start_in_insert = true,
 			shade_terminals = false,
@@ -20,21 +20,21 @@ require("lazy").setup({
 				end
 			end,
 			float_opts = {
-				border = 'double',
-				title_pos = 'center'
+				border = "double",
+				title_pos = "center",
 			},
 		},
 		keys = {
 			{
 				"<leader>ft",
 				"<Cmd>ToggleTerm direction=float<CR>",
-				mode = {"n", "t"},
+				mode = { "n", "t" },
 				desc = "ToggleTerm Toggle",
 			},
 			{
 				"<leader>fg",
 				"<Cmd>lua require('toggleterm.terminal').Terminal:new({cmd='gitui -t mocha.ron', hidden=true, direction='float'}):toggle()<CR>",
-				mode = {"n", "t"},
+				mode = { "n", "t" },
 				desc = "ToggleTerm Toggle GitUI",
 			},
 		},
@@ -82,7 +82,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-		build = 'make'
+		build = "make",
 	},
 	{
 		"kylechui/nvim-surround",
@@ -138,25 +138,35 @@ require("lazy").setup({
 		config = true,
 	},
 	{
-		'nvim-pack/nvim-spectre',
+		"nvim-pack/nvim-spectre",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
 		keys = {
 			{ "<leader>S", mode = { "n" }, "<Cmd>lua require('spectre').open()<CR>", desc = "Open Spectre" },
-			{ "<leader>sw", mode = { "n", "v" }, "<Cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = "Search current word" },
-			{ "<leader>sp", mode = { "n" }, "<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>", desc = "Search on current file" },
+			{
+				"<leader>sw",
+				mode = { "n", "v" },
+				"<Cmd>lua require('spectre').open_visual({select_word=true})<CR>",
+				desc = "Search current word",
+			},
+			{
+				"<leader>sp",
+				mode = { "n" },
+				"<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>",
+				desc = "Search on current file",
+			},
 		},
 		config = function()
 			require("spectre").setup()
 		end,
 	},
 	{
-		'chipsenkbeil/distant.nvim',
-		branch='v0.3',
+		"chipsenkbeil/distant.nvim",
+		branch = "v0.3",
 		config = function()
-			require('distant'):setup()
-		end
+			require("distant"):setup()
+		end,
 	},
 
 	---- LSP Plugins
@@ -211,7 +221,7 @@ require("lazy").setup({
 			"hrsh7th/cmp-buffer", -- { name = 'buffer' },
 			"hrsh7th/cmp-path", -- { name = 'path' }
 			"hrsh7th/cmp-cmdline", -- { name = 'cmdline' }
-			'onsails/lspkind.nvim',
+			"onsails/lspkind.nvim",
 			"petertriho/cmp-git",
 		},
 		config = function()
@@ -235,43 +245,48 @@ require("lazy").setup({
 
 	{
 		"danymat/neogen",
-		config = function ()
-			require('neogen').setup({
+		config = function()
+			require("neogen").setup({
 				snippet_engine = "luasnip",
 				languages = {
-					['cpp.doxygen'] = require('neogen.configurations.cpp'),
-					['c.doxygen'] = require('neogen.configurations.c')
-				}
+					["cpp.doxygen"] = require("neogen.configurations.cpp"),
+					["c.doxygen"] = require("neogen.configurations.c"),
+				},
 			})
 		end,
 	},
 	{
-		'numToStr/Comment.nvim',
+		"numToStr/Comment.nvim",
 		lazy = false,
-		config = function ()
-			require('Comment').setup({ })
-		end
+		config = function()
+			require("Comment").setup({})
+		end,
 	},
 	{
-		'lewis6991/gitsigns.nvim',
-		config = function ()
-			require('gitsigns').setup()
-		end
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup()
+		end,
 	},
 	{
-		'ggandor/leap.nvim',
+		"ggandor/leap.nvim",
 		dependencies = "tpope/vim-repeat",
-		config = function ()
-			require('leap').create_default_mappings()
-		end
+		config = function()
+			require("leap").create_default_mappings()
+		end,
 	},
 	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"nvimtools/none-ls-extras.nvim",
-		},
-		config = function ()
-			require("plugin.none-ls")
-		end
+		"stevearc/conform.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("plugin.conform")
+		end,
+	},
+	{
+		"mfussenegger/nvim-lint",
+		event = "VeryLazy",
+		config = function()
+			require("plugin.nvim-lint")
+		end,
 	},
 })
