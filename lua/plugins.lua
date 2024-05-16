@@ -265,4 +265,13 @@ require("lazy").setup({
 			require('leap').create_default_mappings()
 		end
 	},
+	{
+		"nvimtools/none-ls.nvim",
+		dependencies = {
+			"nvimtools/none-ls-extras.nvim",
+		},
+		config = function ()
+			require("plugin.none-ls")
+		end
+	},
 })
