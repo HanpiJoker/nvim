@@ -1,10 +1,14 @@
 require("lazy").setup({
 	{
-		"olimorris/onedarkpro.nvim",
+		"navarasu/onedark.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme onedark]])
+			require("onedark").setup({
+				style = "darker",
+				ending_tildes = true,
+			})
+			require("onedark").load()
 		end,
 	},
 	{
@@ -63,11 +67,7 @@ require("lazy").setup({
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		opts = {},
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -89,9 +89,7 @@ require("lazy").setup({
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
 		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
+			require("nvim-surround").setup()
 		end,
 	},
 	{
@@ -178,19 +176,19 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"simrat39/symbols-outline.nvim",
+		"hedyhli/outline.nvim",
 		lazy = true,
 		keys = {
-			{ "<leader>vt", "<Cmd>:SymbolsOutline<CR>", desc = "Symbol Outline Toggle" },
+			{ "<leader>vt", "<Cmd>Outline<CR>", desc = "Outline Toggle" },
 		},
-		config = function()
-			require("symbols-outline").setup({
+		opts = {
+			outline_window = {
 				position = "left",
 				width = 20,
 				auto_close = true,
 				auto_preview = true,
-			})
-		end,
+			},
+		},
 	},
 	{
 		"williamboman/mason.nvim",
@@ -287,6 +285,14 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("plugin.nvim-lint")
+		end,
+	},
+	{
+		"MeanderingProgrammer/markdown.nvim",
+		name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("render-markdown").setup({})
 		end,
 	},
 })
