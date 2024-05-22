@@ -1,30 +1,35 @@
 -- Set up nvim-cmp.
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
-local lspkind = require('lspkind')
-local luasnip = require('luasnip')
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local cmp = require("cmp")
+local lspkind = require("lspkind")
+local luasnip = require("luasnip")
 
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+			require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
 	window = {
 		documentation = cmp.config.window.bordered(),
-		completion = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered({
+			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+			col_offset = -3,
+			side_padding = 0,
+		}),
 	},
 	formatting = {
+		fields = { "kind", "abbr", "menu" },
 		format = lspkind.cmp_format({
 			mode = "symbol",
 			maxwidth = 30,
-			ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 			show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 		}),
 	},
 	mapping = {
-		['<CR>'] = cmp.mapping(function(fallback)
+		["<CR>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				if luasnip.expandable() then
 					luasnip.expand()
@@ -59,47 +64,38 @@ cmp.setup({
 		end, { "i", "s" }),
 	},
 	sources = {
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' }, -- For luasnip users.
-		{ name = 'tags' },
-		{ name = 'buffer' },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" }, -- For luasnip users.
+		{ name = "tags" },
+		{ name = "buffer" },
 	},
 })
 
 -- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-	sources = cmp.config.sources(
-		{
-			{ name = 'git' },
-		},
-		{
-			{ name = 'buffer' },
-		}
-	)
+cmp.setup.filetype("gitcommit", {
+	sources = cmp.config.sources({
+		{ name = "git" },
+	}, {
+		{ name = "buffer" },
+	}),
 })
 require("cmp_git").setup()
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
+cmp.setup.cmdline({ "/", "?" }, {
 	sources = {
-		{ name = 'buffer' }
-	}
+		{ name = "buffer" },
+	},
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-	sources = cmp.config.sources(
-		{
-			{ name = 'path' }
-		},
-		{
-			{ name = 'cmdline' }
-		}
-	),
-	matching = { disallow_symbol_nonprefix_matching = false }
+cmp.setup.cmdline(":", {
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+	matching = { disallow_symbol_nonprefix_matching = false },
 })
 
-cmp.event:on(
-	'confirm_done',
-	cmp_autopairs.on_confirm_done()
-)
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
