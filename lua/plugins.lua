@@ -295,4 +295,8 @@ require("lazy").setup({
 			require("render-markdown").setup({})
 		end,
 	},
+	{
+		"j-hui/fidget.nvim",
+		opts = {},
+	},
 })
