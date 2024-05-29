@@ -226,6 +226,7 @@ require("lazy").setup({
 			require("plugin.cmp")
 		end,
 	},
+	{ "folke/neodev.nvim", opts = {} },
 	{
 		"L3MON4D3/LuaSnip",
 		build = "make install_jsregexp",
