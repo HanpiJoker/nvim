@@ -52,6 +52,9 @@ require("lazy").setup({
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = { theme = "onedark" },
+			sections = {
+				lualine_x = { "aerial" },
+			},
 		},
 	},
 	{
@@ -75,6 +78,10 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"debugloop/telescope-undo.nvim",
 			"benfowler/telescope-luasnip.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
+			"nvim-telescope/telescope-hop.nvim",
+			"camgraff/telescope-tmux.nvim",
+			"norcalli/nvim-terminal.lua",
 		},
 		config = function()
 			require("plugin.telescope")
@@ -97,28 +104,6 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("plugin.autopairs")
-		end,
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		lazy = true,
-		keys = {
-			{ "<leader>fl", "<Cmd>:NvimTreeToggle<CR>", desc = "File Explorer Toggle" },
-		},
-		config = function()
-			require("nvim-tree").setup({
-				sort_by = "case_sensitive",
-				view = {
-					width = 30,
-					side = "right",
-				},
-				renderer = {
-					group_empty = true,
-				},
-				filters = {
-					dotfiles = true,
-				},
-			})
 		end,
 	},
 	{
@@ -176,17 +161,17 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"hedyhli/outline.nvim",
-		lazy = true,
-		keys = {
-			{ "<leader>vt", "<Cmd>Outline<CR>", desc = "Outline Toggle" },
-		},
+		"stevearc/aerial.nvim",
 		opts = {
-			outline_window = {
-				position = "left",
-				width = 20,
-				auto_close = true,
-				auto_preview = true,
+			layout = {
+				default_direction = "prefer_left",
+			},
+			close_automatic_events = { "switch_buffer", "unfocus" },
+			close_on_select = true,
+			show_guides = true,
+			nav = {
+				autojump = true,
+				preview = true,
 			},
 		},
 	},
@@ -268,10 +253,11 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"ggandor/leap.nvim",
-		dependencies = "tpope/vim-repeat",
+		"phaazon/hop.nvim",
+		branch = "v2",
 		config = function()
-			require("leap").create_default_mappings()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 		end,
 	},
 	{
