@@ -1,34 +1,23 @@
 -- Setup language servers.
 local lspconfig = require("lspconfig")
--- Set up lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.clangd.setup({
 	cmd = { "clangd", "--header-insertion=never", "--background-index" },
-	capabilities = capabilities,
 })
 
-lspconfig.pylsp.setup({
-	capabilities = capabilities,
-})
+lspconfig.pylsp.setup({})
 
-lspconfig.bashls.setup({
-	capabilities = capabilities,
-})
+lspconfig.bashls.setup({})
 
-lspconfig.jsonls.setup({
-	capabilities = capabilities,
-})
+lspconfig.jsonls.setup({})
 
 lspconfig.rust_analyzer.setup({
-	capabilities = capabilities,
 	settings = {
 		["rust-analyzer"] = {},
 	},
 })
 
 lspconfig.lua_ls.setup({
-	capabilities = capabilities,
 	settings = {
 		Lua = {
 			runtime = {

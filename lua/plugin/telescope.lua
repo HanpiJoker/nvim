@@ -56,6 +56,18 @@ telescope.setup({
 			hijack_netrw = true,
 			hidden = { file_browser = true, folder_browser = true },
 		},
+		menu = {
+			default = {
+				items = {
+					-- You can add an item of menu in the form of { "<display>", "<command>" }
+					{ "Checkhealth", "checkhealth" },
+					{ "Show LSP Info", "LspInfo" },
+					{ "Files", "Telescope find_files" },
+					-- The above examples are syntax-sugars of the following;
+					{ "Change colorscheme", "Telescope colorscheme" },
+				},
+			},
+		},
 		hop = {
 			-- the shown `keys` are the defaults, no need to set `keys` if defaults work for you ;)
 			keys = {
@@ -123,7 +135,7 @@ telescope.load_extension("fzf")
 telescope.load_extension("aerial")
 telescope.load_extension("file_browser")
 telescope.load_extension("hop")
-telescope.load_extension("tmux")
+telescope.load_extension("menu")
 
 vim.keymap.set("n", "<leader>rf", builtin.fd)
 vim.keymap.set("n", "<leader>rg", builtin.grep_string)

@@ -80,7 +80,7 @@ require("lazy").setup({
 			"benfowler/telescope-luasnip.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-hop.nvim",
-			"camgraff/telescope-tmux.nvim",
+			"octarect/telescope-menu.nvim",
 			"norcalli/nvim-terminal.lua",
 		},
 		config = function()
@@ -227,18 +227,28 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter" },
+		"ms-jpq/coq_nvim",
+		branch = "coq",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp", -- { name = nvim_lsp }
-			"hrsh7th/cmp-buffer", -- { name = 'buffer' },
-			"hrsh7th/cmp-path", -- { name = 'path' }
-			"hrsh7th/cmp-cmdline", -- { name = 'cmdline' }
-			"onsails/lspkind.nvim",
-			"petertriho/cmp-git",
+			-- 9000+ Snippets
+			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+			-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+			-- Need to **configure separately**
+			{ "ms-jpq/coq.thirdparty", branch = "3p" },
+			-- - shell repl
+			-- - nvim lua api
+			-- - scientific calculator
+			-- - comment banner
+			-- - etc
 		},
+		init = function()
+			vim.g.coq_settings = {
+				auto_start = true,
+			}
+		end,
 		config = function()
-			require("plugin.cmp")
+			require("plugin.coq")
 		end,
 	},
 	{ "folke/neodev.nvim", opts = {} },
@@ -250,7 +260,6 @@ require("lazy").setup({
 			require("luasnip.loaders.from_vscode").lazy_load()
 		end,
 	},
-	"saadparwaiz1/cmp_luasnip",
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
