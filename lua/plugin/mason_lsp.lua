@@ -1,23 +1,33 @@
 -- Setup language servers.
 local lspconfig = require("lspconfig")
+local coq = require("coq")
 
 lspconfig.clangd.setup({
+	coq.lsp_ensure_capabilities(),
 	cmd = { "clangd", "--header-insertion=never", "--background-index" },
 })
 
-lspconfig.pylsp.setup({})
+lspconfig.pylsp.setup({
+	coq.lsp_ensure_capabilities(),
+})
 
-lspconfig.bashls.setup({})
+lspconfig.bashls.setup({
+	coq.lsp_ensure_capabilities(),
+})
 
-lspconfig.jsonls.setup({})
+lspconfig.jsonls.setup({
+	coq.lsp_ensure_capabilities(),
+})
 
 lspconfig.rust_analyzer.setup({
+	coq.lsp_ensure_capabilities(),
 	settings = {
 		["rust-analyzer"] = {},
 	},
 })
 
 lspconfig.lua_ls.setup({
+	coq.lsp_ensure_capabilities(),
 	settings = {
 		Lua = {
 			runtime = {
