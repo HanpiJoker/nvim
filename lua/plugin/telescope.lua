@@ -56,18 +56,6 @@ telescope.setup({
 			hijack_netrw = true,
 			hidden = { file_browser = true, folder_browser = true },
 		},
-		menu = {
-			default = {
-				items = {
-					-- You can add an item of menu in the form of { "<display>", "<command>" }
-					{ "Checkhealth", "checkhealth" },
-					{ "Show LSP Info", "LspInfo" },
-					{ "Files", "Telescope find_files" },
-					-- The above examples are syntax-sugars of the following;
-					{ "Change colorscheme", "Telescope colorscheme" },
-				},
-			},
-		},
 		hop = {
 			-- the shown `keys` are the defaults, no need to set `keys` if defaults work for you ;)
 			keys = {
@@ -135,13 +123,7 @@ telescope.load_extension("fzf")
 telescope.load_extension("aerial")
 telescope.load_extension("file_browser")
 telescope.load_extension("hop")
-telescope.load_extension("menu")
 
-vim.keymap.set("n", "<leader>rf", builtin.fd)
-vim.keymap.set("n", "<leader>rg", builtin.grep_string)
-vim.keymap.set("n", "<leader>rb", builtin.buffers)
-vim.keymap.set("n", "<leader>rh", builtin.help_tags)
-vim.keymap.set("n", "<leader>rk", builtin.keymaps)
 vim.keymap.set("n", "gd", builtin.lsp_definitions)
 vim.keymap.set("n", "gr", builtin.lsp_references)
 vim.keymap.set("n", "gi", builtin.lsp_implementations)

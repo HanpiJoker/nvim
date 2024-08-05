@@ -27,7 +27,6 @@ require("lint").linters_by_ft = {
 	sh = { "shellcheck" },
 	bash = { "shellcheck" },
 	zsh = { "shellcheck" },
-	rust = { "clippy" },
 	c = { "cppcheck" },
 }
 require("lint").try_lint()

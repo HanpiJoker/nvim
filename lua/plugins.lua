@@ -64,6 +64,18 @@ require("lazy").setup({
 		opts = { options = { separator_style = "slant" } }, -- enable bufferline
 	},
 	{
+		"stevearc/oil.nvim",
+		dependencies = "echasnovski/mini.icons",
+		config = function()
+			require("oil").setup({
+				deleted_to_trash = true,
+				view_options = {
+					show_hidden = true,
+				},
+			})
+		end,
+	},
+	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		init = function()
@@ -80,8 +92,15 @@ require("lazy").setup({
 			"benfowler/telescope-luasnip.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-hop.nvim",
-			"octarect/telescope-menu.nvim",
 			"norcalli/nvim-terminal.lua",
+		},
+		keys = {
+			{ "<leader>tf", mode = { "n", "x" }, "<Cmd>Telescope fd<CR>", desc = "Telescope Find files" },
+			{ "<leader>tl", mode = { "n", "x" }, "<Cmd>Telescope file_browser<CR>", desc = "Telescope File Browser" },
+			{ "<leader>tw", mode = { "n", "x" }, "<Cmd>Telescope grep_string<CR>", desc = "Telescope Find Words" },
+			{ "<leader>tb", mode = { "n", "x" }, "<Cmd>Telescope buffers<CR>", desc = "Telescope Find Words" },
+			{ "<leader>th", mode = { "n", "x" }, "<Cmd>Telescope help_tags<CR>", desc = "Telescope Find Help" },
+			{ "<leader>tk", mode = { "n", "x" }, "<Cmd>Telescope keymaps<CR>", desc = "Telescope Find Keymap" },
 		},
 		config = function()
 			require("plugin.telescope")
