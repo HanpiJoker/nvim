@@ -123,8 +123,3 @@ telescope.load_extension("fzf")
 telescope.load_extension("aerial")
 telescope.load_extension("file_browser")
 telescope.load_extension("hop")
-
-vim.keymap.set("n", "gd", builtin.lsp_definitions)
-vim.keymap.set("n", "gr", builtin.lsp_references)
-vim.keymap.set("n", "gi", builtin.lsp_implementations)
-vim.keymap.set("n", "gy", builtin.lsp_type_definitions)

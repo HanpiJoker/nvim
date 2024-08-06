@@ -93,6 +93,10 @@ require("lazy").setup({
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-hop.nvim",
 			"norcalli/nvim-terminal.lua",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+			},
 		},
 		keys = {
 			{ "<leader>tf", mode = { "n", "x" }, "<Cmd>Telescope fd<CR>", desc = "Telescope Find files" },
@@ -101,14 +105,20 @@ require("lazy").setup({
 			{ "<leader>tb", mode = { "n", "x" }, "<Cmd>Telescope buffers<CR>", desc = "Telescope Find Words" },
 			{ "<leader>th", mode = { "n", "x" }, "<Cmd>Telescope help_tags<CR>", desc = "Telescope Find Help" },
 			{ "<leader>tk", mode = { "n", "x" }, "<Cmd>Telescope keymaps<CR>", desc = "Telescope Find Keymap" },
+
+			{ "gd", mode = { "n" }, "<Cmd>Telescope lsp_definitions<CR>", desc = "Telescope Goto definitions" },
+			{ "gr", mode = { "n" }, "<Cmd>Telescope lsp_references<CR>", desc = "Telescope Goto references" },
+			{ "gi", mode = { "n" }, "<Cmd>Telescope lsp_implementations<CR>", desc = "Telescope Goto implementations" },
+			{
+				"gt",
+				mode = { "n" },
+				"<Cmd>Telescope lsp_type_definitions<CR>",
+				desc = "Telescope Goto type_definitions",
+			},
 		},
 		config = function()
 			require("plugin.telescope")
 		end,
-	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
 	},
 	{
 		"kylechui/nvim-surround",
@@ -133,7 +143,6 @@ require("lazy").setup({
 		lazy = true,
 		keys = {
 			{ "<leader>te", mode = { "n", "x" }, "<Cmd>Translate<CR>", desc = " Translate" },
-			{ "<leader>tp", mode = { "n", "x" }, "<Cmd>TransPlay<CR>", desc = " Auto Play" },
 			{ "<leader>ti", "<Cmd>TranslateInput<CR>", desc = " Translate From Input" },
 		},
 		dependencies = { "kkharji/sqlite.lua" },
@@ -242,34 +251,55 @@ require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			require("plugin.mason_lsp")
+			require("plugin.lspconfig")
 		end,
 	},
+	"tzachar/fuzzy.nvim",
 	{
-		"ms-jpq/coq_nvim",
-		branch = "coq",
+		"hrsh7th/nvim-cmp",
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
-			-- 9000+ Snippets
-			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-
-			-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-			-- Need to **configure separately**
-			{ "ms-jpq/coq.thirdparty", branch = "3p" },
-			-- - shell repl
-			-- - nvim lua api
-			-- - scientific calculator
-			-- - comment banner
-			-- - etc
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-nvim-lsp",
+			"onsails/lspkind.nvim",
+			"petertriho/cmp-git",
+			"saadparwaiz1/cmp_luasnip",
+			"chrisgrieser/cmp_yanky",
+			"lukas-reineke/cmp-rg",
+			"tzachar/cmp-fuzzy-buffer",
+			"tzachar/cmp-fuzzy-path",
 		},
-		init = function()
-			vim.g.coq_settings = {
-				auto_start = true,
-			}
-		end,
 		config = function()
-			require("plugin.coq")
+			require("plugin.cmp")
 		end,
 	},
+	-- {
+	-- 	"ms-jpq/coq_nvim",
+	-- 	branch = "coq",
+	-- 	dependencies = {
+	-- 		-- 9000+ Snippets
+	-- 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+	-- 		-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+	-- 		-- Need to **configure separately**
+	-- 		{ "ms-jpq/coq.thirdparty", branch = "3p" },
+	-- 		-- - shell repl
+	-- 		-- - nvim lua api
+	-- 		-- - scientific calculator
+	-- 		-- - comment banner
+	-- 		-- - etc
+	-- 	},
+	-- 	init = function()
+	-- 		vim.g.coq_settings = {
+	-- 			auto_start = true,
+	-- 		}
+	-- 	end,
+	-- 	config = function()
+	-- 		require("plugin.coq")
+	-- 	end,
+	-- },
 	{ "folke/neodev.nvim", opts = {} },
 	{
 		"L3MON4D3/LuaSnip",
@@ -342,6 +372,10 @@ require("lazy").setup({
 	},
 	{
 		"j-hui/fidget.nvim",
+		opts = {},
+	},
+	{
+		"gbprod/yanky.nvim",
 		opts = {},
 	},
 })
