@@ -18,6 +18,7 @@ local options = {
 	wrap = false, -- 禁止自动换行
 
 	-- 代码补全设置
+	wildmenu = false, -- nvim-cmp support cmdline autocomplete
 	wildoptions = "pum",
 	completeopt = "menu,menuone,noselect",
 

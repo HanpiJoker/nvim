@@ -6,57 +6,6 @@ local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 local lspconfig = require("lspconfig")
 
--- Set up lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-lspconfig.clangd.setup({
-	capabilitis = capabilitis,
-	cmd = { "clangd", "--header-insertion=never", "--background-index" },
-})
-
-lspconfig.pylsp.setup({
-	capabilitis = capabilitis,
-})
-
-lspconfig.bashls.setup({
-	capabilitis = capabilitis,
-})
-
-lspconfig.jsonls.setup({
-	capabilitis = capabilitis,
-})
-
-lspconfig.rust_analyzer.setup({
-	capabilitis = capabilitis,
-	settings = {
-		["rust-analyzer"] = {},
-	},
-})
-
-lspconfig.lua_ls.setup({
-	capabilitis = capabilitis,
-	settings = {
-		Lua = {
-			runtime = {
-				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-				version = "LuaJIT",
-			},
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			-- Do not send telemetry data containing a randomized but unique identifier
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
-})
-
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
