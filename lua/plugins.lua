@@ -1,4 +1,6 @@
 require("lazy").setup({
+	-- basic plugins
+	---- colorscheme: onedark is best
 	{
 		"navarasu/onedark.nvim",
 		lazy = false,
@@ -11,6 +13,7 @@ require("lazy").setup({
 			require("onedark").load()
 		end,
 	},
+	---- float terminal plugins
 	{
 		"akinsho/toggleterm.nvim",
 		opts = {
@@ -43,10 +46,7 @@ require("lazy").setup({
 			},
 		},
 	},
-	{
-		"nvim-tree/nvim-web-devicons",
-		lazy = true,
-	},
+	-- lualine for status line
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = "nvim-tree/nvim-web-devicons",
@@ -57,6 +57,7 @@ require("lazy").setup({
 			},
 		},
 	},
+	-- bufferline for buffer tab line
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
@@ -275,31 +276,32 @@ require("lazy").setup({
 			require("plugin.cmp")
 		end,
 	},
-	-- {
-	-- 	"ms-jpq/coq_nvim",
-	-- 	branch = "coq",
-	-- 	dependencies = {
-	-- 		-- 9000+ Snippets
-	-- 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+	{
+		"ms-jpq/coq_nvim",
+		branch = "coq",
+		cond = false,
+		dependencies = {
+			-- 9000+ Snippets
+			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
 
-	-- 		-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-	-- 		-- Need to **configure separately**
-	-- 		{ "ms-jpq/coq.thirdparty", branch = "3p" },
-	-- 		-- - shell repl
-	-- 		-- - nvim lua api
-	-- 		-- - scientific calculator
-	-- 		-- - comment banner
-	-- 		-- - etc
-	-- 	},
-	-- 	init = function()
-	-- 		vim.g.coq_settings = {
-	-- 			auto_start = true,
-	-- 		}
-	-- 	end,
-	-- 	config = function()
-	-- 		require("plugin.coq")
-	-- 	end,
-	-- },
+			-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+			-- Need to **configure separately**
+			{ "ms-jpq/coq.thirdparty", branch = "3p" },
+			-- - shell repl
+			-- - nvim lua api
+			-- - scientific calculator
+			-- - comment banner
+			-- - etc
+		},
+		init = function()
+			vim.g.coq_settings = {
+				auto_start = true,
+			}
+		end,
+		config = function()
+			require("plugin.coq")
+		end,
+	},
 	{ "folke/neodev.nvim", opts = {} },
 	{
 		"L3MON4D3/LuaSnip",
@@ -337,7 +339,16 @@ require("lazy").setup({
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("gitsigns").setup()
+			require("gitsigns").setup({
+				current_line_blame = true,
+				current_line_blame_opts = {
+					virt_text = true,
+					virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+					delay = 500,
+					ignore_whitespace = false,
+					virt_text_priority = 100,
+				},
+			})
 		end,
 	},
 	{
@@ -364,21 +375,11 @@ require("lazy").setup({
 	},
 	{
 		"3rd/image.nvim",
-		cond = function()
-			return not vim.g.neovide
-		end,
 		dependencies = {
 			"leafo/magick",
 			"nvim-treesitter/nvim-treesitter",
-			{
-				"vhyrro/luarocks.nvim",
-				opts = {
-					rocks = {
-						hererocks = true,
-					},
-				},
-			},
 		},
+		enabled = false,
 		config = function()
 			require("image").setup({
 				backend = "kitty",
@@ -407,8 +408,14 @@ require("lazy").setup({
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
-			require("render-markdown").setup({})
+			require("render-markdown").setup({
+				render_modes = { "n", "c", "i", "v" },
+			})
 		end,
+	},
+	{
+		"nvim-neorg/neorg",
+		config = true,
 	},
 	{
 		"j-hui/fidget.nvim",
@@ -416,6 +423,18 @@ require("lazy").setup({
 	},
 	{
 		"gbprod/yanky.nvim",
-		opts = {},
+		opts = {
+			ring = {
+				history_length = 100,
+				storage = "shada",
+				sync_with_numbered_registers = true,
+				cancel_event = "update",
+				ignore_registers = { "_" },
+				update_register_on_cycle = false,
+			},
+			system_clipboard = {
+				sync_with_ring = true,
+			},
+		},
 	},
 })
