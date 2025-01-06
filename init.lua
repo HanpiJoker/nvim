@@ -22,7 +22,3 @@ for key, value in pairs(modules) do
 	package.loaded[value] = nil
 	require(value)
 end
-
-if vim.g.neovide then
-	require("neovide")
-end
