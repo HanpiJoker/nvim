@@ -55,7 +55,7 @@ if vim.fn.has("wsl") == 1 then
 	}
 elseif vim.fn.executable("xclip") == 1 then
 	vim.g.clipboard = {
-		name = "xclip-ubuntu",
+		name = "xclip",
 		copy = {
 			["+"] = "xclip -selection clipboard",
 			["*"] = "xclip -selection clipboard",
