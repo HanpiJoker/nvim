@@ -22,3 +22,5 @@ for key, value in pairs(modules) do
 	package.loaded[value] = nil
 	require(value)
 end
+
+vim.cmd.colorscheme("catppuccin")

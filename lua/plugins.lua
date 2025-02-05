@@ -1,17 +1,94 @@
 require("lazy").setup({
 	-- basic plugins
-	---- colorscheme: onedark is best
 	{
-		"navarasu/onedark.nvim",
-		lazy = false,
+		"catppuccin/nvim",
+		name = "catppuccin",
 		priority = 1000,
-		config = function()
-			require("onedark").setup({
-				style = "darker",
-				ending_tildes = true,
-			})
-			require("onedark").load()
-		end,
+	},
+	{
+		"j-hui/fidget.nvim",
+		opts = {},
+	},
+	{
+		"gbprod/yanky.nvim",
+		dependencies = { "kkharji/sqlite.lua" },
+		opts = {
+			ring = {
+				history_length = 100,
+				storage = "sqlite",
+				sync_with_numbered_registers = true,
+				cancel_event = "update",
+				ignore_registers = { "_" },
+				update_register_on_cycle = false,
+			},
+			picker = {
+				select = {
+					action = nil,
+				},
+				telescope = {
+					use_default_mappings = true,
+					mappings = nil,
+				},
+			},
+			system_clipboard = {
+				sync_with_ring = true,
+			},
+			highlight = {
+				on_put = true,
+				on_yank = true,
+				timer = 200,
+			},
+		},
+		keys = {
+			{
+				"y",
+				"<Plug>(YankyYank)",
+				mode = { "n", "x" },
+				desc = "yank",
+			},
+			{
+				"<leader>y",
+				"<Cmd>lua require('telescope').extensions.yank_history.yank_history()<CR>",
+				mode = { "n", "x" },
+				desc = "yank",
+			},
+			{
+				"p",
+				"<Plug>(YankyPutAfter)",
+				mode = { "n" },
+				desc = "paste after cursor",
+			},
+			{
+				"P",
+				"<Plug>(YankyPutBefore)",
+				mode = { "n" },
+				desc = "paste before cursor",
+			},
+			{
+				"gp",
+				"<Plug>(YankyGPutAfter)",
+				mode = { "n" },
+				desc = "paste at end of file",
+			},
+			{
+				"gP",
+				"<Plug>(YankyGPutBefore)",
+				mode = { "n" },
+				desc = "paste at head of file",
+			},
+			{
+				"<c-n>",
+				"<Plug>(YankyCycleForward)",
+				mode = { "n" },
+				desc = "paste at end of file",
+			},
+			{
+				"<c-p>",
+				"<Plug>(YankyCycleBackward)",
+				mode = { "n" },
+				desc = "paste at head of file",
+			},
+		},
 	},
 	---- float terminal plugins
 	{
@@ -137,6 +214,13 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"smoka7/hop.nvim",
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	},
+	{
 		"JuanZoran/Trans.nvim",
 		build = function()
 			require("Trans").install()
@@ -171,13 +255,6 @@ require("lazy").setup({
 		},
 		config = function()
 			require("spectre").setup()
-		end,
-	},
-	{
-		"chipsenkbeil/distant.nvim",
-		branch = "v0.3",
-		config = function()
-			require("distant"):setup()
 		end,
 	},
 
@@ -277,33 +354,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"ms-jpq/coq_nvim",
-		branch = "coq",
-		cond = false,
-		dependencies = {
-			-- 9000+ Snippets
-			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-
-			-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-			-- Need to **configure separately**
-			{ "ms-jpq/coq.thirdparty", branch = "3p" },
-			-- - shell repl
-			-- - nvim lua api
-			-- - scientific calculator
-			-- - comment banner
-			-- - etc
-		},
-		init = function()
-			vim.g.coq_settings = {
-				auto_start = true,
-			}
-		end,
-		config = function()
-			require("plugin.coq")
-		end,
-	},
-	{ "folke/neodev.nvim", opts = {} },
-	{
 		"L3MON4D3/LuaSnip",
 		build = "make install_jsregexp",
 		dependencies = { "rafamadriz/friendly-snippets" },
@@ -352,13 +402,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"smoka7/hop.nvim",
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-		end,
-	},
-	{
 		"stevearc/conform.nvim",
 		event = "VeryLazy",
 		config = function()
@@ -373,37 +416,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"3rd/image.nvim",
-		dependencies = {
-			"leafo/magick",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		enabled = false,
-		config = function()
-			require("image").setup({
-				backend = "kitty",
-				integrations = {
-					markdown = {
-						enabled = true,
-						clear_in_insert_mode = false,
-						download_remote_images = true,
-						only_render_image_at_cursor = false,
-						filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-					},
-				},
-				max_width = nil,
-				max_height = nil,
-				max_width_window_percentage = 100,
-				max_height_window_percentage = 100,
-				window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
-				window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-				editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-				tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-				hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
-			})
-		end,
-	},
-	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
@@ -411,25 +423,5 @@ require("lazy").setup({
 				render_modes = { "n", "c", "i", "v" },
 			})
 		end,
-	},
-	{
-		"j-hui/fidget.nvim",
-		opts = {},
-	},
-	{
-		"gbprod/yanky.nvim",
-		opts = {
-			ring = {
-				history_length = 100,
-				storage = "shada",
-				sync_with_numbered_registers = true,
-				cancel_event = "update",
-				ignore_registers = { "_" },
-				update_register_on_cycle = false,
-			},
-			system_clipboard = {
-				sync_with_ring = true,
-			},
-		},
 	},
 })
