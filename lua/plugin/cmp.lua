@@ -91,6 +91,7 @@ cmp.setup({
 		{ name = "rg" },
 		{ name = "fuzzy_buffer" },
 		{ name = "fuzzy_path" },
+		{ name = "neorg" },
 	},
 })
 

@@ -424,4 +424,47 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"nvim-neorg/neorg",
+		ft = "norg",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {},
+					["core.concealer"] = {
+						config = {
+							icon_preset = "diamond",
+						},
+					},
+					["core.dirman"] = {
+						config = {
+							workspaces = {
+								notes = "~/Documents/Notes",
+								others = "~/Documents/Others",
+							},
+							default_workspace = "notes",
+							index = "index.norg",
+						},
+					},
+					["core.completion"] = {
+						config = { engine = "nvim-cmp" },
+					},
+					["core.journal"] = {},
+					["core.export"] = {},
+					["core.export.markdown"] = {},
+					["core.integrations.nvim-cmp"] = {},
+				},
+			})
+		end,
+		keys = {
+			{ "<leader>no", mode = { "n" }, "<Cmd>Neorg workspace notes<CR>", desc = "Open Notes Workspace" },
+			{ "<leader>nr", mode = { "n" }, "<Cmd>Neorg return<CR>", desc = "return to Neorg" },
+			{ "<leader>nn", mode = { "n" }, "<Plug>(neorg.dirman.new-note)", desc = "New Notes" },
+			{ "<leader>nj", mode = { "n" }, "<Cmd>Neorg journal today<CR>", desc = "Today's Journal" },
+		},
+	},
 })
