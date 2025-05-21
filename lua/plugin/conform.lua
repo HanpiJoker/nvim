@@ -2,7 +2,7 @@
 
 require("conform").setup({
 	format_after_save = function(bufnr)
-		local ignore_filetypes = { "sql", "java", "c", "cpp" }
+		local ignore_filetypes = { "sql", "java" }
 
 		if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
 			return

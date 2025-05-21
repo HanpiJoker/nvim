@@ -4,7 +4,6 @@ local cmp = require("cmp")
 local compare = require("cmp.config.compare")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
-local lspconfig = require("lspconfig")
 
 cmp.setup({
 	snippet = {
@@ -92,6 +91,7 @@ cmp.setup({
 		{ name = "fuzzy_buffer" },
 		{ name = "fuzzy_path" },
 		{ name = "neorg" },
+		{ name = "render-markdown" },
 	},
 })
 

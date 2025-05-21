@@ -10,6 +10,12 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup()
+		end,
+	},
+	{
 		"gbprod/yanky.nvim",
 		dependencies = { "kkharji/sqlite.lua" },
 		opts = {
@@ -117,7 +123,7 @@ require("lazy").setup({
 			},
 			{
 				"<leader>fg",
-				"<Cmd>lua require('toggleterm.terminal').Terminal:new({cmd='gitui -t mocha.ron', hidden=true, direction='float'}):toggle()<CR>",
+				"<Cmd>lua require('toggleterm.terminal').Terminal:new({cmd='gitui -t catppuccin-mocha.ron', hidden=true, direction='float'}):toggle()<CR>",
 				mode = { "n", "t" },
 				desc = "ToggleTerm Toggle GitUI",
 			},
@@ -262,6 +268,14 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter", -- Syntax Highlight
 		build = ":TSUpdate",
+		dependencies = {
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				config = function()
+					require("treesitter-context").setup()
+				end,
+			},
+		},
 		config = function()
 			require("plugin.treesitter")
 		end,
@@ -320,6 +334,7 @@ require("lazy").setup({
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
+		version = "1.x",
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls", "rust_analyzer", "jsonls", "bashls", "pylsp" },
