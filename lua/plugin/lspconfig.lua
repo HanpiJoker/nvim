@@ -54,6 +54,14 @@ elseif vim.tbl_get(require("lazy.core.config").plugins, "coq_nvim") then
 			settings = config.settings,
 		})
 	end
+elseif vim.tbl_get(require("lazy.core.config").plugins, "blink.cmp") then
+	for server, config in pairs(lsp_servers) do
+		lspconfig[server].setup({
+			capabilities = require("blink.cmp").get_lsp_capabilities(),
+			cmd = config.cmd,
+			settings = config.settings,
+		})
+	end
 else
 	vim.print("Error, not enable complete plugin")
 end
