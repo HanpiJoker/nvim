@@ -149,27 +149,6 @@ require("lazy").setup({
 		opts = { options = { separator_style = "slant" } }, -- enable bufferline
 	},
 	{
-		"stevearc/oil.nvim",
-		dependencies = "echasnovski/mini.icons",
-		config = function()
-			require("oil").setup({
-				deleted_to_trash = true,
-				view_options = {
-					show_hidden = true,
-				},
-			})
-		end,
-	},
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
-		opts = {},
-	},
-	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -407,6 +386,16 @@ require("lazy").setup({
 			require("luasnip.loaders.from_vscode").lazy_load()
 		end,
 	},
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		priority = 1000,
+		config = function()
+			require("tiny-inline-diagnostic").setup()
+			vim.diagnostic.config({ virtual_text = false }) -- Disable default virtual text
+		end,
+	},
+
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
