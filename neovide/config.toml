@@ -1,7 +1,7 @@
 fork = false
 frame = "full"
 idle = true
-maximized = false
+maximized = true
 mouse-cursor-icon = "arrow"
 no-multigrid = false
 srgb = false

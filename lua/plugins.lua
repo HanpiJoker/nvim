@@ -294,9 +294,25 @@ require("lazy").setup({
 		opts = {
 			-- fill any relevant options here
 		},
+		keys = {
+			{
+				"<leader>ff",
+				mode = { "n" },
+				"<Cmd>Neotree<CR>",
+				desc = "Toggle File Tree",
+			},
+		},
 	},
 	{
 		"stevearc/aerial.nvim",
+		keys = {
+			{
+				"<leader>fo",
+				mode = { "n" },
+				"<Cmd>AerialToggle!<CR>",
+				desc = "Toggle Aerial Outline",
+			},
+		},
 		opts = {
 			backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
 			layout = {
@@ -453,48 +469,5 @@ require("lazy").setup({
 				render_modes = { "n", "c", "i", "v" },
 			})
 		end,
-	},
-	{
-		"nvim-neorg/neorg",
-		ft = "norg",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			require("neorg").setup({
-				load = {
-					["core.defaults"] = {},
-					["core.concealer"] = {
-						config = {
-							icon_preset = "diamond",
-						},
-					},
-					["core.dirman"] = {
-						config = {
-							workspaces = {
-								notes = "~/Documents/Notes",
-								others = "~/Documents/Others",
-							},
-							default_workspace = "notes",
-							index = "index.norg",
-						},
-					},
-					["core.completion"] = {
-						config = { engine = "nvim-cmp" },
-					},
-					["core.journal"] = {},
-					["core.export"] = {},
-					["core.export.markdown"] = {},
-					["core.integrations.nvim-cmp"] = {},
-				},
-			})
-		end,
-		keys = {
-			{ "<leader>no", mode = { "n" }, "<Cmd>Neorg workspace notes<CR>", desc = "Open Notes Workspace" },
-			{ "<leader>nr", mode = { "n" }, "<Cmd>Neorg return<CR>", desc = "return to Neorg" },
-			{ "<leader>nn", mode = { "n" }, "<Plug>(neorg.dirman.new-note)", desc = "New Notes" },
-			{ "<leader>nj", mode = { "n" }, "<Cmd>Neorg journal today<CR>", desc = "Today's Journal" },
-		},
 	},
 })

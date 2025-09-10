@@ -23,4 +23,8 @@ for key, value in pairs(modules) do
 	require(value)
 end
 
+if vim.g.neovide then
+	require("neovide")
+end
+
 vim.cmd.colorscheme("catppuccin")
