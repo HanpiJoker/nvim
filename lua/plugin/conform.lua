@@ -19,4 +19,10 @@ require("conform").setup({
 		c = { "clang-format" },
 		lua = { "stylua" },
 	},
+
+	formatters = {
+		clang_format = {
+			prepend_args = { "--style=file", "--fallback-style=LLVM" },
+		},
+	},
 })

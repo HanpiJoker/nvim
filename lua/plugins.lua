@@ -153,7 +153,6 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"debugloop/telescope-undo.nvim",
-			"benfowler/telescope-luasnip.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-hop.nvim",
 			"norcalli/nvim-terminal.lua",
@@ -267,7 +266,6 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
-			-- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
 		lazy = false, -- neo-tree will lazily load itself
 		opts = {
@@ -361,6 +359,7 @@ require("lazy").setup({
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = { "rafamadriz/friendly-snippets" },
+		build = "cargo +nightly build --release",
 
 		-- use a release tag to download pre-built binaries
 		version = "1.*",
@@ -409,6 +408,10 @@ require("lazy").setup({
 			fuzzy = { implementation = "prefer_rust_with_warning" },
 		},
 		opts_extend = { "sources.default" },
+
+		cmdline = {
+			completion = { menu = { auto_show = true } },
+		},
 	},
 	{
 		"rachartier/tiny-inline-diagnostic.nvim",
@@ -430,7 +433,6 @@ require("lazy").setup({
 		"danymat/neogen",
 		config = function()
 			require("neogen").setup({
-				snippet_engine = "luasnip",
 				languages = {
 					["cpp.doxygen"] = require("neogen.configurations.cpp"),
 					["c.doxygen"] = require("neogen.configurations.c"),
@@ -480,6 +482,7 @@ require("lazy").setup({
 		config = function()
 			require("render-markdown").setup({
 				render_modes = { "n", "c", "i", "v" },
+				latex = { enabled = false },
 			})
 		end,
 	},

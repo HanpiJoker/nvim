@@ -1,6 +1,4 @@
 -- Setup language servers.
-local lspconfig = require("lspconfig")
-
 local lsp_servers = {
 	clangd = {
 		cmd = { "clangd", "--header-insertion=never", "--background-index" },
@@ -8,6 +6,7 @@ local lsp_servers = {
 	pylsp = {},
 	bashls = {},
 	jsonls = {},
+	typos_lsp = {},
 	rust_analyzer = {
 		settings = {
 			["rust-analyzer"] = {},
@@ -22,10 +21,9 @@ local lsp_servers = {
 				},
 				diagnostics = {
 					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
+					globals = { "vim", "require" },
 				},
 				workspace = {
-					checkThirdParty = false,
 					-- Make the server aware of Neovim runtime files
 					library = vim.api.nvim_get_runtime_file("", true),
 				},
@@ -39,28 +37,34 @@ local lsp_servers = {
 }
 
 if vim.tbl_get(require("lazy.core.config").plugins, "nvim-cmp") then
-	for server, config in pairs(lsp_servers) do
-		lspconfig[server].setup({
+	for server, conf in pairs(lsp_servers) do
+		vim.lsp.config(server, {
 			capabilities = require("cmp_nvim_lsp").default_capabilities(),
-			cmd = config.cmd,
-			settings = config.settings,
+			cmd = conf.cmd,
+			settings = conf.settings,
 		})
+
+		vim.lsp.enable(server)
 	end
 elseif vim.tbl_get(require("lazy.core.config").plugins, "coq_nvim") then
-	for server, config in pairs(lsp_servers) do
-		lspconfig[server].setup({
+	for server, conf in pairs(lsp_servers) do
+		vim.lsp.config(server, {
 			require("coq").lsp_ensure_capabilities(),
-			cmd = config.cmd,
-			settings = config.settings,
+			cmd = conf.cmd,
+			settings = conf.settings,
 		})
+
+		vim.lsp.enable(server)
 	end
 elseif vim.tbl_get(require("lazy.core.config").plugins, "blink.cmp") then
-	for server, config in pairs(lsp_servers) do
-		lspconfig[server].setup({
+	for server, conf in pairs(lsp_servers) do
+		vim.lsp.config(server, {
 			capabilities = require("blink.cmp").get_lsp_capabilities(),
-			cmd = config.cmd,
-			settings = config.settings,
+			cmd = conf.cmd,
+			settings = conf.settings,
 		})
+
+		vim.lsp.enable(server)
 	end
 else
 	vim.print("Error, not enable complete plugin")
