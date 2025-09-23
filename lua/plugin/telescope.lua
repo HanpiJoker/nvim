@@ -48,7 +48,6 @@ telescope.setup({
 			override_file_sorter = true, -- override the file sorter
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 		},
-		luasnip = {},
 		aerial = {},
 		file_browser = {
 			theme = "ivy",
@@ -118,7 +117,6 @@ telescope.setup({
 })
 
 telescope.load_extension("undo")
-telescope.load_extension("luasnip")
 telescope.load_extension("fzf")
 telescope.load_extension("aerial")
 telescope.load_extension("file_browser")
