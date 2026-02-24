@@ -6,47 +6,28 @@ require("lazy").setup({
 		priority = 1000,
 	},
 	{
-		"j-hui/fidget.nvim",
-		opts = {},
-	},
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("notify").setup()
-			vim.notify = require("notify")
-		end,
-	},
-	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
-			-- add any options here
+			lsp = {
+				progress = { enabled = false },
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+				},
+			},
+			presets = {
+				bottom_search = true, -- use a classic bottom cmdline for search
+				command_palette = true, -- position the cmdline and popupmenu together
+				long_message_to_split = true, -- long messages will be sent to a split
+				inc_rename = false, -- enables an input dialog for inc-rename.nvim
+				lsp_doc_border = false, -- add a border to hover docs and signature help
+			},
 		},
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
 		},
-		config = function()
-			require("noice").setup({
-				lsp = {
-					override = {
-						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-						["vim.lsp.util.stylize_markdown"] = true,
-					},
-				},
-				presets = {
-					bottom_search = true, -- use a classic bottom cmdline for search
-					command_palette = true, -- position the cmdline and popupmenu together
-					long_message_to_split = true, -- long messages will be sent to a split
-					inc_rename = false, -- enables an input dialog for inc-rename.nvim
-					lsp_doc_border = false, -- add a border to hover docs and signature help
-				},
-			})
-		end,
 	},
 	{
 		"gbprod/yanky.nvim",
@@ -129,40 +110,6 @@ require("lazy").setup({
 			},
 		},
 	},
-	---- float terminal plugins
-	{
-		"akinsho/toggleterm.nvim",
-		opts = {
-			start_in_insert = true,
-			shade_terminals = false,
-			size = function(term)
-				if term.direction == "horizontal" then
-					return 15
-				elseif term.direction == "vertical" then
-					return vim.o.columns * 0.4
-				end
-			end,
-			float_opts = {
-				border = "double",
-				title_pos = "center",
-			},
-		},
-		keys = {
-			{
-				"<leader>ft",
-				"<Cmd>ToggleTerm direction=float<CR>",
-				mode = { "n", "t" },
-				desc = "ToggleTerm Toggle",
-			},
-			{
-				"<leader>fg",
-				"<Cmd>lua require('toggleterm.terminal').Terminal:new({cmd='gitui -t catppuccin-mocha.ron', hidden=true, direction='float'}):toggle()<CR>",
-				mode = { "n", "t" },
-				desc = "ToggleTerm Toggle GitUI",
-			},
-		},
-	},
-	-- lualine for status line
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = "nvim-tree/nvim-web-devicons",
@@ -181,38 +128,534 @@ require("lazy").setup({
 		opts = { options = { separator_style = "slant" } }, -- enable bufferline
 	},
 	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"debugloop/telescope-undo.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
-			"nvim-telescope/telescope-hop.nvim",
-			"norcalli/nvim-terminal.lua",
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		keys = {
 			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			animate = { enabled = true, duration = 20, easing = "linear" },
+			bigfile = { enabled = true },
+			dashboard = { enabled = true },
+			explorer = { enabled = true },
+			indent = { enabled = true, only_current = true, only_scope = true },
+			input = {},
+			notifier = { enabled = true },
+			picker = { enabled = true },
+			quickfile = { enabled = true },
+			scope = { enabled = true },
+			statuscolumn = { enabled = true },
+			scroll = { enabled = true },
+			words = { enabled = true },
+			terminal = {
+				enabled = true,
 			},
 		},
 		keys = {
-			{ "<leader>tf", mode = { "n", "x" }, "<Cmd>Telescope fd<CR>", desc = "Telescope Find files" },
-			{ "<leader>tl", mode = { "n", "x" }, "<Cmd>Telescope file_browser<CR>", desc = "Telescope File Browser" },
-			{ "<leader>tw", mode = { "n", "x" }, "<Cmd>Telescope grep_string<CR>", desc = "Telescope Find Words" },
-			{ "<leader>tb", mode = { "n", "x" }, "<Cmd>Telescope buffers<CR>", desc = "Telescope Find Words" },
-			{ "<leader>th", mode = { "n", "x" }, "<Cmd>Telescope help_tags<CR>", desc = "Telescope Find Help" },
-			{ "<leader>tk", mode = { "n", "x" }, "<Cmd>Telescope keymaps<CR>", desc = "Telescope Find Keymap" },
-
-			{ "gd", mode = { "n" }, "<Cmd>Telescope lsp_definitions<CR>", desc = "Telescope Goto definitions" },
-			{ "gr", mode = { "n" }, "<Cmd>Telescope lsp_references<CR>", desc = "Telescope Goto references" },
-			{ "gi", mode = { "n" }, "<Cmd>Telescope lsp_implementations<CR>", desc = "Telescope Goto implementations" },
+			-- Top Pickers & Explorer
 			{
-				"gt",
-				mode = { "n" },
-				"<Cmd>Telescope lsp_type_definitions<CR>",
-				desc = "Telescope Goto type_definitions",
+				"<leader><space>",
+				function()
+					Snacks.picker.smart()
+				end,
+				desc = "Smart Find Files",
+			},
+			{
+				"<leader>,",
+				function()
+					Snacks.picker.buffers()
+				end,
+				desc = "Buffers",
+			},
+			{
+				"<leader>/",
+				function()
+					Snacks.picker.grep()
+				end,
+				desc = "Grep",
+			},
+			{
+				"<leader>:",
+				function()
+					Snacks.picker.command_history()
+				end,
+				desc = "Command History",
+			},
+			{
+				"<leader>n",
+				function()
+					Snacks.picker.notifications()
+				end,
+				desc = "Notification History",
+			},
+			{
+				"<leader>e",
+				function()
+					Snacks.explorer()
+				end,
+				desc = "File Explorer",
+			},
+			{
+				"<leader>fc",
+				function()
+					Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+				end,
+				desc = "Find Config File",
+			},
+			{
+				"<leader>ff",
+				function()
+					Snacks.picker.files()
+				end,
+				desc = "Find Files",
+			},
+			{
+				"<leader>fg",
+				function()
+					Snacks.picker.git_files()
+				end,
+				desc = "Find Git Files",
+			},
+			{
+				"<leader>fp",
+				function()
+					Snacks.picker.projects()
+				end,
+				desc = "Projects",
+			},
+			{
+				"<leader>fr",
+				function()
+					Snacks.picker.recent()
+				end,
+				desc = "Recent",
+			},
+			-- git
+			{
+				"<leader>gb",
+				function()
+					Snacks.picker.git_branches()
+				end,
+				desc = "Git Branches",
+			},
+			{
+				"<leader>gl",
+				function()
+					Snacks.picker.git_log()
+				end,
+				desc = "Git Log",
+			},
+			{
+				"<leader>gL",
+				function()
+					Snacks.picker.git_log_line()
+				end,
+				desc = "Git Log Line",
+			},
+			{
+				"<leader>gs",
+				function()
+					Snacks.picker.git_status()
+				end,
+				desc = "Git Status",
+			},
+			{
+				"<leader>gS",
+				function()
+					Snacks.picker.git_stash()
+				end,
+				desc = "Git Stash",
+			},
+			{
+				"<leader>gd",
+				function()
+					Snacks.picker.git_diff()
+				end,
+				desc = "Git Diff (Hunks)",
+			},
+			{
+				"<leader>gf",
+				function()
+					Snacks.picker.git_log_file()
+				end,
+				desc = "Git Log File",
+			},
+			-- Grep
+			{
+				"<leader>sb",
+				function()
+					Snacks.picker.lines()
+				end,
+				desc = "Buffer Lines",
+			},
+			{
+				"<leader>sB",
+				function()
+					Snacks.picker.grep_buffers()
+				end,
+				desc = "Grep Open Buffers",
+			},
+			{
+				"<leader>sw",
+				function()
+					Snacks.picker.grep_word()
+				end,
+				desc = "Visual selection or word",
+				mode = { "n", "x" },
+			},
+			-- search
+			{
+				'<leader>s"',
+				function()
+					Snacks.picker.registers()
+				end,
+				desc = "Registers",
+			},
+			{
+				"<leader>s/",
+				function()
+					Snacks.picker.search_history()
+				end,
+				desc = "Search History",
+			},
+			{
+				"<leader>sa",
+				function()
+					Snacks.picker.autocmds()
+				end,
+				desc = "Autocmds",
+			},
+			{
+				"<leader>sb",
+				function()
+					Snacks.picker.lines()
+				end,
+				desc = "Buffer Lines",
+			},
+			{
+				"<leader>sC",
+				function()
+					Snacks.picker.commands()
+				end,
+				desc = "Commands",
+			},
+			{
+				"<leader>sd",
+				function()
+					Snacks.picker.diagnostics()
+				end,
+				desc = "Diagnostics",
+			},
+			{
+				"<leader>sD",
+				function()
+					Snacks.picker.diagnostics_buffer()
+				end,
+				desc = "Buffer Diagnostics",
+			},
+			{
+				"<leader>sh",
+				function()
+					Snacks.picker.help()
+				end,
+				desc = "Help Pages",
+			},
+			{
+				"<leader>sH",
+				function()
+					Snacks.picker.highlights()
+				end,
+				desc = "Highlights",
+			},
+			{
+				"<leader>si",
+				function()
+					Snacks.picker.icons()
+				end,
+				desc = "Icons",
+			},
+			{
+				"<leader>sj",
+				function()
+					Snacks.picker.jumps()
+				end,
+				desc = "Jumps",
+			},
+			{
+				"<leader>sk",
+				function()
+					Snacks.picker.keymaps()
+				end,
+				desc = "Keymaps",
+			},
+			{
+				"<leader>sl",
+				function()
+					Snacks.picker.loclist()
+				end,
+				desc = "Location List",
+			},
+			{
+				"<leader>sm",
+				function()
+					Snacks.picker.marks()
+				end,
+				desc = "Marks",
+			},
+			{
+				"<leader>sM",
+				function()
+					Snacks.picker.man()
+				end,
+				desc = "Man Pages",
+			},
+			{
+				"<leader>sp",
+				function()
+					Snacks.picker.lazy()
+				end,
+				desc = "Search for Plugin Spec",
+			},
+			{
+				"<leader>sq",
+				function()
+					Snacks.picker.qflist()
+				end,
+				desc = "Quickfix List",
+			},
+			{
+				"<leader>sR",
+				function()
+					Snacks.picker.resume()
+				end,
+				desc = "Resume",
+			},
+			{
+				"<leader>su",
+				function()
+					Snacks.picker.undo()
+				end,
+				desc = "Undo History",
+			},
+			{
+				"<leader>uC",
+				function()
+					Snacks.picker.colorschemes()
+				end,
+				desc = "Colorschemes",
+			},
+			-- LSP
+			{
+				"gd",
+				function()
+					Snacks.picker.lsp_definitions()
+				end,
+				desc = "Goto Definition",
+			},
+			{
+				"gD",
+				function()
+					Snacks.picker.lsp_declarations()
+				end,
+				desc = "Goto Declaration",
+			},
+			{
+				"gr",
+				function()
+					Snacks.picker.lsp_references()
+				end,
+				nowait = true,
+				desc = "References",
+			},
+			{
+				"gI",
+				function()
+					Snacks.picker.lsp_implementations()
+				end,
+				desc = "Goto Implementation",
+			},
+			{
+				"gy",
+				function()
+					Snacks.picker.lsp_type_definitions()
+				end,
+				desc = "Goto T[y]pe Definition",
+			},
+			{
+				"gai",
+				function()
+					Snacks.picker.lsp_incoming_calls()
+				end,
+				desc = "C[a]lls Incoming",
+			},
+			{
+				"gao",
+				function()
+					Snacks.picker.lsp_outgoing_calls()
+				end,
+				desc = "C[a]lls Outgoing",
+			},
+			{
+				"<leader>ss",
+				function()
+					Snacks.picker.lsp_symbols()
+				end,
+				desc = "LSP Symbols",
+			},
+			{
+				"<leader>sS",
+				function()
+					Snacks.picker.lsp_workspace_symbols()
+				end,
+				desc = "LSP Workspace Symbols",
+			},
+			-- Other
+			{
+				"<leader>z",
+				function()
+					Snacks.zen()
+				end,
+				desc = "Toggle Zen Mode",
+			},
+			{
+				"<leader>Z",
+				function()
+					Snacks.zen.zoom()
+				end,
+				desc = "Toggle Zoom",
+			},
+			{
+				"<leader>.",
+				function()
+					Snacks.scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>S",
+				function()
+					Snacks.scratch.select()
+				end,
+				desc = "Select Scratch Buffer",
+			},
+			{
+				"<leader>n",
+				function()
+					Snacks.notifier.show_history()
+				end,
+				desc = "Notification History",
+			},
+			{
+				"<leader>bd",
+				function()
+					Snacks.bufdelete()
+				end,
+				desc = "Delete Buffer",
+			},
+			{
+				"<leader>cR",
+				function()
+					Snacks.rename.rename_file()
+				end,
+				desc = "Rename File",
+			},
+			{
+				"<leader>gg",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit",
+			},
+			{
+				"<leader>un",
+				function()
+					Snacks.notifier.hide()
+				end,
+				desc = "Dismiss All Notifications",
+			},
+			{
+				"<c-/>",
+				function()
+					Snacks.terminal()
+				end,
+				desc = "Toggle Terminal",
+			},
+			{
+				"]]",
+				function()
+					Snacks.words.jump(vim.v.count1)
+				end,
+				desc = "Next Reference",
+				mode = { "n", "t" },
+			},
+			{
+				"[[",
+				function()
+					Snacks.words.jump(-vim.v.count1)
+				end,
+				desc = "Prev Reference",
+				mode = { "n", "t" },
 			},
 		},
-		config = function()
-			require("plugin.telescope")
+		init = function()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "VeryLazy",
+				callback = function()
+					-- Setup some globals for debugging (lazy-loaded)
+					_G.dd = function(...)
+						Snacks.debug.inspect(...)
+					end
+					_G.bt = function()
+						Snacks.debug.backtrace()
+					end
+
+					-- Override print to use snacks for `:=` command
+					if vim.fn.has("nvim-0.11") == 1 then
+						vim._print = function(_, ...)
+							dd(...)
+						end
+					else
+						vim.print = _G.dd
+					end
+
+					-- Create some toggle mappings
+					Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+					Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+					Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+					Snacks.toggle.diagnostics():map("<leader>ud")
+					Snacks.toggle.line_number():map("<leader>ul")
+					Snacks.toggle
+						.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+						:map("<leader>uc")
+					Snacks.toggle.treesitter():map("<leader>uT")
+					Snacks.toggle
+						.option("background", { off = "light", on = "dark", name = "Dark Background" })
+						:map("<leader>ub")
+					Snacks.toggle.inlay_hints():map("<leader>uh")
+					Snacks.toggle.indent():map("<leader>ug")
+					Snacks.toggle.dim():map("<leader>uD")
+				end,
+			})
 		end,
 	},
 	{
@@ -388,17 +831,41 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"coder/claudecode.nvim",
+		dependencies = { "folke/snacks.nvim" },
+		opts = {
+			terminal_cmd = "~/.local/bin/claude", -- Point to local installation
+			terminal = {
+				provider = "snacks",
+			},
+		},
+		config = true,
+		keys = {
+			{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+			{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+			{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+			{ "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+			{ "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+			{ "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+			{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+			{
+				"<leader>as",
+				"<cmd>ClaudeCodeTreeAdd<cr>",
+				desc = "Add file",
+				ft = { "snacks_picker_list", "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+			},
+			-- Diff management
+			{ "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+			{ "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+		},
+	},
+	{
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
-		dependencies = { "rafamadriz/friendly-snippets" },
-		build = "cargo +nightly build --release",
+		dependencies = { "rafamadriz/friendly-snippets", "Kaiser-Yang/blink-cmp-avante" },
 
 		-- use a release tag to download pre-built binaries
 		version = "1.*",
-		-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-		-- build = 'cargo build --release',
-		-- If you use nix, you can build from source using latest nightly rust with:
-		-- build = 'nix run .#build-plugin',
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -424,7 +891,21 @@ require("lazy").setup({
 			},
 
 			-- (Default) Only show the documentation popup when manually triggered
-			completion = { documentation = { auto_show = false } },
+			completion = {
+				documentation = { auto_show = false },
+				ghost_text = {
+					enabled = true,
+				},
+				menu = {
+					draw = {
+						columns = {
+							{ "kind_icon" },
+							{ "label", gap = 1 },
+							{ "source_name" },
+						},
+					},
+				},
+			},
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
@@ -454,13 +935,6 @@ require("lazy").setup({
 			vim.diagnostic.config({ virtual_text = false }) -- Disable default virtual text
 		end,
 	},
-
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = true,
-	},
-
 	{
 		"danymat/neogen",
 		config = function()
