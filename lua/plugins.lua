@@ -830,6 +830,46 @@ require("lazy").setup({
 			require("plugin.lspconfig")
 		end,
 	},
+	-- {
+	-- 	"milanglacier/minuet-ai.nvim",
+	-- 	config = function()
+	-- 		require("minuet").setup({
+	-- 			virtualtext = {
+	-- 				auto_trigger_ft = {},
+	-- 				keymap = {
+	-- 					-- accept whole completion
+	-- 					accept = "<A-A>",
+	-- 					-- accept one line
+	-- 					accept_line = "<A-a>",
+	-- 					-- accept n lines (prompts for number)
+	-- 					-- e.g. "A-z 2 CR" will accept 2 lines
+	-- 					accept_n_lines = "<A-z>",
+	-- 					-- Cycle to prev completion item, or manually invoke completion
+	-- 					prev = "<A-[>",
+	-- 					-- Cycle to next completion item, or manually invoke completion
+	-- 					next = "<A-]>",
+	-- 					dismiss = "<A-e>",
+	-- 				},
+	-- 			},
+	-- 			provider = "claude",
+	-- 			provider_options = {
+	-- 				claude = {
+	-- 					model = "glm-4.7",
+	-- 					stream = true,
+	-- 					api_key = "ANTHROPIC_API_KEY",
+	-- 					end_point = "https://open.bigmodel.cn/api/anthropic/v1/messages",
+	-- 					optional = {
+	-- 						-- pass any additional parameters you want to send to claude request,
+	-- 						-- e.g.
+	-- 						-- stop_sequences = nil,
+	-- 					},
+	-- 					-- a list of functions to transform the endpoint, header, and request body
+	-- 					transform = {},
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"coder/claudecode.nvim",
 		dependencies = { "folke/snacks.nvim" },
@@ -882,7 +922,14 @@ require("lazy").setup({
 			-- C-k: Toggle signature help (if signature.enabled = true)
 			--
 			-- See :h blink-cmp-config-keymap for defining your own keymap
-			keymap = { preset = "default" },
+			keymap = {
+				preset = "default",
+				["<A-y>"] = {
+					function(cmp)
+						cmp.show({ providers = { "minuet" } })
+					end,
+				},
+			},
 
 			appearance = {
 				-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -910,7 +957,18 @@ require("lazy").setup({
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "minuet", "lsp", "path", "snippets", "buffer" },
+				providers = {
+					minuet = {
+						name = "minuet",
+						module = "minuet.blink",
+						async = true,
+						-- Should match minuet.config.request_timeout * 1000,
+						-- since minuet.config.request_timeout is in seconds
+						timeout_ms = 3000,
+						score_offset = 50, -- Gives minuet higher priority among suggestions
+					},
+				},
 			},
 
 			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
