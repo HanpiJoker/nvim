@@ -14,8 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 
 local modules = {
 	"options",
-	"keymaps",
 	"plugins",
+	"lspconfig",
 }
 
 for key, value in pairs(modules) do

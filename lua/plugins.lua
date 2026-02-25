@@ -34,41 +34,13 @@ require("lazy").setup({
 		dependencies = { "kkharji/sqlite.lua" },
 		opts = {
 			ring = {
-				history_length = 100,
 				storage = "sqlite",
-				sync_with_numbered_registers = true,
-				cancel_event = "update",
-				ignore_registers = { "_" },
-				update_register_on_cycle = false,
-			},
-			picker = {
-				select = {
-					action = nil,
-				},
-				telescope = {
-					use_default_mappings = true,
-					mappings = nil,
-				},
-			},
-			system_clipboard = {
-				sync_with_ring = true,
-			},
-			highlight = {
-				on_put = true,
-				on_yank = true,
-				timer = 200,
 			},
 		},
 		keys = {
 			{
 				"y",
 				"<Plug>(YankyYank)",
-				mode = { "n", "x" },
-				desc = "yank",
-			},
-			{
-				"<leader>y",
-				"<Cmd>lua require('telescope').extensions.yank_history.yank_history()<CR>",
 				mode = { "n", "x" },
 				desc = "yank",
 			},
@@ -142,6 +114,30 @@ require("lazy").setup({
 					require("which-key").show({ global = false })
 				end,
 				desc = "Buffer Local Keymaps (which-key)",
+			},
+			{
+				"<leader>q",
+				"<cmd>q<CR>",
+				mode = { "n" },
+				desc = "exit",
+			},
+			{
+				"<leader>w",
+				"<cmd>w<CR>",
+				mode = { "n" },
+				desc = "save current changed",
+			},
+			{
+				"<leader>wq",
+				"<cmd>w<CR><cmd>q<CR>",
+				mode = { "n" },
+				desc = "save and exit",
+			},
+			{
+				"<leader>Q",
+				"<cmd>qa!<CR>",
+				mode = { "n" },
+				desc = "force exit without save",
 			},
 		},
 	},
@@ -722,17 +718,10 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter", -- Syntax Highlight
 		build = ":TSUpdate",
+		lazy = false,
 		dependencies = {
-			{
-				"nvim-treesitter/nvim-treesitter-context",
-				config = function()
-					require("treesitter-context").setup()
-				end,
-			},
+			"nvim-treesitter/nvim-treesitter-context",
 		},
-		config = function()
-			require("plugin.treesitter")
-		end,
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
@@ -826,9 +815,6 @@ require("lazy").setup({
 	},
 	{
 		"neovim/nvim-lspconfig",
-		config = function()
-			require("plugin.lspconfig")
-		end,
 	},
 	-- {
 	-- 	"milanglacier/minuet-ai.nvim",
@@ -990,7 +976,16 @@ require("lazy").setup({
 		event = "VeryLazy",
 		priority = 1000,
 		config = function()
-			require("tiny-inline-diagnostic").setup()
+			require("tiny-inline-diagnostic").setup({
+				options = {
+					multilines = {
+						enabled = true,
+					},
+					show_source = {
+						enabled = true,
+					},
+				},
+			})
 			vim.diagnostic.config({ virtual_text = false }) -- Disable default virtual text
 		end,
 	},
@@ -1046,7 +1041,8 @@ require("lazy").setup({
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("render-markdown").setup({
-				render_modes = { "n", "c", "i", "v" },
+				completions = { lsp = { enabled = true } },
+				render_modes = true,
 				latex = { enabled = false },
 			})
 		end,
