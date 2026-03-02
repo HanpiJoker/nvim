@@ -717,84 +717,11 @@ require("lazy").setup({
 	---- LSP Plugins
 	{
 		"nvim-treesitter/nvim-treesitter", -- Syntax Highlight
+		branch = "main",
 		build = ":TSUpdate",
 		lazy = false,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-context",
-		},
-	},
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-		},
-		lazy = false, -- neo-tree will lazily load itself
-		opts = {
-			-- fill any relevant options here
-		},
-		keys = {
-			{
-				"<leader>ff",
-				mode = { "n" },
-				"<Cmd>Neotree<CR>",
-				desc = "Toggle File Tree",
-			},
-		},
-	},
-	{
-		"stevearc/aerial.nvim",
-		keys = {
-			{
-				"<leader>fo",
-				mode = { "n" },
-				"<Cmd>AerialToggle!<CR>",
-				desc = "Toggle Aerial Outline",
-			},
-		},
-		opts = {
-			backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
-			layout = {
-				default_direction = "prefer_left",
-			},
-			close_automatic_events = { "switch_buffer", "unfocus" },
-			close_on_select = true,
-			show_guides = true,
-			filter_kind = false,
-			-- {
-			-- 	-- "Array",
-			-- 	-- "Boolean",
-			-- 	"Class",
-			-- 	-- "Constant",
-			-- 	"Constructor",
-			-- 	"Enum",
-			-- 	-- "EnumMember",
-			-- 	-- "Event",
-			-- 	-- "Field",
-			-- 	-- "File",
-			-- 	"Function",
-			-- 	"Interface",
-			-- 	-- "Key",
-			-- 	"Method",
-			-- 	"Module",
-			-- 	-- "Namespace",
-			-- 	-- "Null",
-			-- 	-- "Number",
-			-- 	-- "Object",
-			-- 	-- "Operator",
-			-- 	-- "Package",
-			-- 	-- "Property",
-			-- 	-- "String",
-			-- 	"Struct",
-			-- 	-- "TypeParameter",
-			-- 	-- "Variable",
-			-- },
-			nav = {
-				autojump = true,
-				preview = true,
-			},
 		},
 	},
 	{
@@ -888,7 +815,7 @@ require("lazy").setup({
 	{
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
-		dependencies = { "rafamadriz/friendly-snippets", "Kaiser-Yang/blink-cmp-avante" },
+		dependencies = { "rafamadriz/friendly-snippets" },
 
 		-- use a release tag to download pre-built binaries
 		version = "1.*",
@@ -987,17 +914,6 @@ require("lazy").setup({
 				},
 			})
 			vim.diagnostic.config({ virtual_text = false }) -- Disable default virtual text
-		end,
-	},
-	{
-		"danymat/neogen",
-		config = function()
-			require("neogen").setup({
-				languages = {
-					["cpp.doxygen"] = require("neogen.configurations.cpp"),
-					["c.doxygen"] = require("neogen.configurations.c"),
-				},
-			})
 		end,
 	},
 	{
