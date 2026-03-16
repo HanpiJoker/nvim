@@ -770,12 +770,12 @@ require("lazy").setup({
 					model = "glm-4.7-claude-mlu",
 					api_key_name = "ANTHROPIC_AUTH_TOKEN",
 				},
-				zed_glm = {
-					__inherited_from = "openai",
-					endpoint = "https://open.bigmodel.cn/api/paas/v4",
-					model = "glm-4.7",
-					api_key_name = "ZED_ANTHROPIC_AUTH_TOKEN",
-				},
+				-- zed_glm = {
+				-- 	__inherited_from = "openai",
+				-- 	endpoint = "https://open.bigmodel.cn/api/paas/v4",
+				-- 	model = "glm-4.7",
+				-- 	api_key_name = "ZED_ANTHROPIC_AUTH_TOKEN",
+				-- },
 			},
 			behaviour = {
 				auto_suggestions = true,
@@ -811,14 +811,7 @@ require("lazy").setup({
 			-- C-k: Toggle signature help (if signature.enabled = true)
 			--
 			-- See :h blink-cmp-config-keymap for defining your own keymap
-			keymap = {
-				preset = "default",
-				["<A-y>"] = {
-					function(cmp)
-						cmp.show({ providers = { "minuet" } })
-					end,
-				},
-			},
+			keymap = { preset = "default" },
 
 			appearance = {
 				-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
