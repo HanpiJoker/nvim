@@ -743,79 +743,55 @@ require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 	},
-	-- {
-	-- 	"milanglacier/minuet-ai.nvim",
-	-- 	config = function()
-	-- 		require("minuet").setup({
-	-- 			virtualtext = {
-	-- 				auto_trigger_ft = {},
-	-- 				keymap = {
-	-- 					-- accept whole completion
-	-- 					accept = "<A-A>",
-	-- 					-- accept one line
-	-- 					accept_line = "<A-a>",
-	-- 					-- accept n lines (prompts for number)
-	-- 					-- e.g. "A-z 2 CR" will accept 2 lines
-	-- 					accept_n_lines = "<A-z>",
-	-- 					-- Cycle to prev completion item, or manually invoke completion
-	-- 					prev = "<A-[>",
-	-- 					-- Cycle to next completion item, or manually invoke completion
-	-- 					next = "<A-]>",
-	-- 					dismiss = "<A-e>",
-	-- 				},
-	-- 			},
-	-- 			provider = "claude",
-	-- 			provider_options = {
-	-- 				claude = {
-	-- 					model = "glm-4.7",
-	-- 					stream = true,
-	-- 					api_key = "ANTHROPIC_API_KEY",
-	-- 					end_point = "https://open.bigmodel.cn/api/anthropic/v1/messages",
-	-- 					optional = {
-	-- 						-- pass any additional parameters you want to send to claude request,
-	-- 						-- e.g.
-	-- 						-- stop_sequences = nil,
-	-- 					},
-	-- 					-- a list of functions to transform the endpoint, header, and request body
-	-- 					transform = {},
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
 	{
-		"coder/claudecode.nvim",
-		dependencies = { "folke/snacks.nvim" },
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		build = vim.fn.has("win32") ~= 0
+				and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+			or "make",
+		version = false, -- 永远不要将此值设置为 "*"！永远不要！
+		---@module 'avante'
+		---@type avante.Config
 		opts = {
-			terminal_cmd = "~/.local/bin/claude", -- Point to local installation
-			terminal = {
+			input = {
 				provider = "snacks",
+				provider_opts = {
+					title = "Avante Input",
+					icon = " ",
+					placeholder = "Enter your API key...",
+				},
+			},
+			provider = "cnagent_glm",
+			auto_suggestions_provider = "cnagent_glm",
+			providers = {
+				cnagent_glm = {
+					__inherited_from = "openai",
+					endpoint = "https://cnagent.cambricon.com:30443/api/v1",
+					model = "glm-4.7-claude-mlu",
+					api_key_name = "ANTHROPIC_AUTH_TOKEN",
+				},
+				zed_glm = {
+					__inherited_from = "openai",
+					endpoint = "https://open.bigmodel.cn/api/paas/v4",
+					model = "glm-4.7",
+					api_key_name = "ZED_ANTHROPIC_AUTH_TOKEN",
+				},
+			},
+			behaviour = {
+				auto_suggestions = true,
 			},
 		},
-		config = true,
-		keys = {
-			{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-			{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-			{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-			{ "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-			{ "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-			{ "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-			{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-			{
-				"<leader>as",
-				"<cmd>ClaudeCodeTreeAdd<cr>",
-				desc = "Add file",
-				ft = { "snacks_picker_list", "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
-			},
-			-- Diff management
-			{ "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-			{ "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"ibhagwan/fzf-lua", -- 用于文件选择器提供者 fzf
+			"nvim-tree/nvim-web-devicons", -- 或 echasnovski/mini.icons
 		},
 	},
 	{
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
-		dependencies = { "rafamadriz/friendly-snippets" },
+		dependencies = { "rafamadriz/friendly-snippets", "Kaiser-Yang/blink-cmp-avante" },
 
 		-- use a release tag to download pre-built binaries
 		version = "1.*",
@@ -870,19 +846,16 @@ require("lazy").setup({
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
-				-- default = { "minuet", "lsp", "path", "snippets", "buffer" },
-				-- providers = {
-				-- 	minuet = {
-				-- 		name = "minuet",
-				-- 		module = "minuet.blink",
-				-- 		async = true,
-				-- 		-- Should match minuet.config.request_timeout * 1000,
-				-- 		-- since minuet.config.request_timeout is in seconds
-				-- 		timeout_ms = 3000,
-				-- 		score_offset = 50, -- Gives minuet higher priority among suggestions
-				-- 	},
-				-- },
+				default = { "avante", "lsp", "path", "snippets", "buffer" },
+				providers = {
+					avante = {
+						module = "blink-cmp-avante",
+						name = "Avante",
+						opts = {
+							-- options for blink-cmp-avante
+						},
+					},
+				},
 			},
 
 			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -955,6 +928,10 @@ require("lazy").setup({
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		opts = {
+			file_types = { "markdown", "Avante" },
+		},
+		ft = { "markdown", "Avante" },
 		config = function()
 			require("render-markdown").setup({
 				completions = { lsp = { enabled = true } },
