@@ -747,7 +747,7 @@ require("lazy").setup({
 		"yetone/avante.nvim",
 		event = "VeryLazy",
 		build = vim.fn.has("win32") ~= 0
-			and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+				and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
 			or "make",
 		version = false, -- 永远不要将此值设置为 "*"！永远不要！
 		---@module 'avante'
@@ -761,8 +761,8 @@ require("lazy").setup({
 					placeholder = "Enter your API key...",
 				},
 			},
-			provider = "zed_glm",
-			auto_suggestions_provider = "zed_glm",
+			provider = "cnagent_glm",
+			auto_suggestions_provider = "cnagent_glm",
 			providers = {
 				ark_claude = {
 					__inherited_from = "claude",
@@ -776,6 +776,12 @@ require("lazy").setup({
 					model = "glm-4.7",
 					api_key_name = "ZED_OPENAI_API_KEY",
 				},
+				cnagent_glm = {
+					__inherited_from = "openai",
+					endpoint = "https://cnagent.cambricon.com:30443/api/v1",
+					model = "glm-4.7-claude-mlu",
+					api_key_name = "ANTHROPIC_AUTH_TOKEN",
+				},
 			},
 			behaviour = {
 				auto_suggestions = true,
@@ -784,7 +790,7 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
-			"ibhagwan/fzf-lua",   -- 用于文件选择器提供者 fzf
+			"ibhagwan/fzf-lua", -- 用于文件选择器提供者 fzf
 			"nvim-tree/nvim-web-devicons", -- 或 echasnovski/mini.icons
 		},
 	},
@@ -829,7 +835,7 @@ require("lazy").setup({
 					draw = {
 						columns = {
 							{ "kind_icon" },
-							{ "label",      gap = 1 },
+							{ "label", gap = 1 },
 							{ "source_name" },
 						},
 					},
