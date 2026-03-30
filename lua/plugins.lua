@@ -142,6 +142,39 @@ require("lazy").setup({
 		},
 	},
 	{
+		"DrKJeff16/project.nvim",
+		cmd = { -- Lazy-load by commands
+			"Project",
+			"ProjectAdd",
+			"ProjectConfig",
+			"ProjectDelete",
+			"ProjectExport",
+			"ProjectFzf", -- If using `fzf-lua` integration
+			"ProjectHealth",
+			"ProjectHistory",
+			"ProjectImport",
+			"ProjectLog", -- If logging is enabled
+			"ProjectRecents",
+			"ProjectRoot",
+			"ProjectSession",
+			"ProjectSnacks", -- If using `snacks.nvim` integration
+		},
+		opts = {
+			snacks = {
+				enabled = true,
+				opts = {
+					sort = "newest",
+					hidden = false,
+					title = "Select Project",
+					layout = "select",
+				},
+			},
+			fzf_lua = {
+				enabled = true,
+			},
+		},
+	},
+	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -764,22 +797,16 @@ require("lazy").setup({
 			provider = "cnagent_glm",
 			auto_suggestions_provider = "cnagent_glm",
 			providers = {
-				ark_claude = {
-					__inherited_from = "claude",
-					endpoint = "https://ark.cn-beijing.volces.com/api/coding",
-					model = "ark-code-latest",
-					api_key_name = "ANTHROPIC_API_KEY",
-				},
 				zed_glm = {
 					__inherited_from = "openai",
-					endpoint = "https://open.bigmodel.cn/api/paas/v4",
-					model = "glm-4.7",
-					api_key_name = "ZED_OPENAI_API_KEY",
+					endpoint = "https://open.bigmodel.cn/api/coding/paas/v4",
+					model = "glm-5",
+					api_key_name = "ANTHROPIC_AUTH_TOKEN",
 				},
 				cnagent_glm = {
-					__inherited_from = "openai",
-					endpoint = "https://cnagent.cambricon.com:30443/api/v1",
-					model = "glm-4.7-claude-mlu",
+					__inherited_from = "claude",
+					endpoint = "https://cnagent.cambricon.com:30443/api",
+					model = "glm-4.7-code",
 					api_key_name = "ANTHROPIC_AUTH_TOKEN",
 				},
 			},
