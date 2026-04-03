@@ -794,8 +794,8 @@ require("lazy").setup({
 					placeholder = "Enter your API key...",
 				},
 			},
-			provider = "cnagent_glm",
-			auto_suggestions_provider = "cnagent_glm",
+			provider = "claude-code",
+			auto_suggestions_provider = "zed_glm",
 			providers = {
 				zed_glm = {
 					__inherited_from = "openai",
@@ -803,11 +803,15 @@ require("lazy").setup({
 					model = "glm-5",
 					api_key_name = "ANTHROPIC_AUTH_TOKEN",
 				},
-				cnagent_glm = {
-					__inherited_from = "claude",
-					endpoint = "https://cnagent.cambricon.com:30443/api",
-					model = "glm-4.7-code",
-					api_key_name = "ANTHROPIC_AUTH_TOKEN",
+			},
+			acp_providers = {
+				["claude-code"] = {
+					command = "npx",
+					args = { "@agentclientprotocol/claude-agent-acp" },
+					env = {
+						NODE_NO_WARNINGS = "1",
+						ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_AUTH_TOKEN"),
+					},
 				},
 			},
 			behaviour = {
