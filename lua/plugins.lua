@@ -89,6 +89,13 @@ require("lazy").setup({
 			options = { theme = "onedark" },
 			sections = {
 				lualine_x = { "aerial" },
+				lualine_z = {
+					{
+						function()
+							return require("opencode").statusline()
+						end,
+					},
+				},
 			},
 		},
 	},
@@ -190,7 +197,21 @@ require("lazy").setup({
 			indent = { enabled = true, only_current = true, only_scope = true },
 			input = {},
 			notifier = { enabled = true },
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+				actions = {
+					opencode_send = function(...)
+						return require("opencode").snacks_picker_send(...)
+					end,
+				},
+				win = {
+					input = {
+						keys = {
+							["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+						},
+					},
+				},
+			},
 			quickfile = { enabled = true },
 			scope = { enabled = true },
 			statuscolumn = { enabled = true },
@@ -777,52 +798,89 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 	},
 	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		build = vim.fn.has("win32") ~= 0
-				and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-			or "make",
-		version = false, -- 永远不要将此值设置为 "*"！永远不要！
-		---@module 'avante'
-		---@type avante.Config
-		opts = {
-			input = {
-				provider = "snacks",
-				provider_opts = {
-					title = "Avante Input",
-					icon = " ",
-					placeholder = "Enter your API key...",
-				},
+		"nickjvandyke/opencode.nvim",
+		version = "*", -- Latest stable release
+		config = function()
+			---@type opencode.Opts
+			vim.g.opencode_opts = {
+				start = false,
+				port = 41234,
+			}
+			vim.o.autoread = true -- Required for `opts.events.reload`
+		end,
+		keys = {
+			{
+				"<C-a>",
+				function()
+					require("opencode").ask("@this: ", { submit = true })
+				end,
+				mode = { "n", "x" },
+				desc = "Ask opencode…",
 			},
-			provider = "claude-code",
-			auto_suggestions_provider = "zed_glm",
-			providers = {
-				zed_glm = {
-					__inherited_from = "openai",
-					endpoint = "https://open.bigmodel.cn/api/coding/paas/v4",
-					model = "glm-5",
-					api_key_name = "ANTHROPIC_AUTH_TOKEN",
-				},
+			{
+				"<C-x>",
+				function()
+					require("opencode").select()
+				end,
+				mode = { "n", "x" },
+				desc = "Execute opencode action…",
 			},
-			acp_providers = {
-				["claude-code"] = {
-					command = "npx",
-					args = { "@agentclientprotocol/claude-agent-acp" },
-					env = {
-						NODE_NO_WARNINGS = "1",
-						ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_AUTH_TOKEN"),
-					},
-				},
+			{
+				"<C-.>",
+				function()
+					require("opencode").toggle()
+				end,
+				mode = { "n", "t" },
+				desc = "Toggle opencode",
 			},
-			behaviour = {
-				auto_suggestions = true,
+			{
+				"go",
+				function()
+					return require("opencode").operator("@this ")
+				end,
+				mode = { "n", "x" },
+				expr = true,
+				desc = "Add range to opencode",
 			},
-		},
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			"ibhagwan/fzf-lua", -- 用于文件选择器提供者 fzf
-			"nvim-tree/nvim-web-devicons", -- 或 echasnovski/mini.icons
+			{
+				"goo",
+				function()
+					return require("opencode").operator("@this ") .. "_"
+				end,
+				mode = { "n" },
+				expr = true,
+				desc = "Add line to opencode",
+			},
+			{
+				"<S-C-u>",
+				function()
+					require("opencode").command("session.half.page.up")
+				end,
+				mode = { "n" },
+				desc = "Scroll opencode up",
+			},
+			{
+				"<S-C-d>",
+				function()
+					require("opencode").command("session.half.page.down")
+				end,
+				mode = { "n" },
+				desc = "Scroll opencode down",
+			},
+			{
+				"+",
+				"<C-a>",
+				mode = { "n" },
+				noremap = true,
+				desc = "Increment under cursor",
+			},
+			{
+				"-",
+				"<C-x>",
+				mode = { "n" },
+				noremap = true,
+				desc = "Decrement under cursor",
+			},
 		},
 	},
 	{
@@ -876,16 +934,8 @@ require("lazy").setup({
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "avante", "lsp", "path", "snippets", "buffer" },
-				providers = {
-					avante = {
-						module = "blink-cmp-avante",
-						name = "Avante",
-						opts = {
-							-- options for blink-cmp-avante
-						},
-					},
-				},
+				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {},
 			},
 
 			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
