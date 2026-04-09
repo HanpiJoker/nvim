@@ -30,7 +30,7 @@ local options = {
 
 	cindent = true,
 	undofile = true,
-	undodir = "/home/cambricon/.local/state/nvim/undodir",
+	undodir = "/home/space/.local/state/nvim/undodir",
 }
 
 vim.g.loaded_netrw = 1
@@ -56,7 +56,7 @@ if vim.fn.has("wsl") == 1 then
 		},
 		cache_enabled = 0,
 	}
-elseif vim.fn.executable("xclip") == 1 then
+elseif vim.env.DISPLAY and vim.fn.executable("xclip") == 1 then
 	vim.g.clipboard = {
 		name = "xclip",
 		copy = {
