@@ -30,7 +30,7 @@ local options = {
 
 	cindent = true,
 	undofile = true,
-	undodir = "/home/space/.local/state/nvim/undodir",
+	undodir = "/home/cambricon/.local/state/nvim/undodir",
 }
 
 vim.g.loaded_netrw = 1
