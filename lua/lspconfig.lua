@@ -1,33 +1,40 @@
--- Setup language servers.
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+
 local lsp_servers = {
 	clangd = {
-		cmd = { "clangd", "--header-insertion=never", "--background-index" },
+		cmd = { mason_bin .. "/clangd", "--header-insertion=never", "--background-index" },
 	},
-	pylsp = {},
-	bashls = {},
-	jsonls = {},
-	typos_lsp = {},
+	pylsp = {
+		cmd = { mason_bin .. "/pylsp" },
+	},
+	bashls = {
+		cmd = { mason_bin .. "/bash-language-server", "start" },
+	},
+	jsonls = {
+		cmd = { mason_bin .. "/vscode-json-language-server", "--stdio" },
+	},
+	typos_lsp = {
+		cmd = { mason_bin .. "/typos-lsp" },
+	},
 	rust_analyzer = {
+		cmd = { mason_bin .. "/rust-analyzer" },
 		settings = {
 			["rust-analyzer"] = {},
 		},
 	},
 	lua_ls = {
+		cmd = { mason_bin .. "/lua-language-server" },
 		settings = {
 			Lua = {
 				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
 					version = "LuaJIT",
 				},
 				diagnostics = {
-					-- Get the language server to recognize the `vim` global
 					globals = { "vim", "require" },
 				},
 				workspace = {
-					-- Make the server aware of Neovim runtime files
 					library = vim.api.nvim_get_runtime_file("", true),
 				},
-				-- Do not send telemetry data containing a randomized but unique identifier
 				telemetry = {
 					enable = false,
 				},
@@ -36,36 +43,11 @@ local lsp_servers = {
 	},
 }
 
-if vim.tbl_get(require("lazy.core.config").plugins, "nvim-cmp") then
-	for server, conf in pairs(lsp_servers) do
-		vim.lsp.config(server, {
-			capabilities = require("cmp_nvim_lsp").default_capabilities(),
-			cmd = conf.cmd,
-			settings = conf.settings,
-		})
-
-		vim.lsp.enable(server)
-	end
-elseif vim.tbl_get(require("lazy.core.config").plugins, "coq_nvim") then
-	for server, conf in pairs(lsp_servers) do
-		vim.lsp.config(server, {
-			require("coq").lsp_ensure_capabilities(),
-			cmd = conf.cmd,
-			settings = conf.settings,
-		})
-
-		vim.lsp.enable(server)
-	end
-elseif vim.tbl_get(require("lazy.core.config").plugins, "blink.cmp") then
-	for server, conf in pairs(lsp_servers) do
-		vim.lsp.config(server, {
-			capabilities = require("blink.cmp").get_lsp_capabilities(),
-			cmd = conf.cmd,
-			settings = conf.settings,
-		})
-
-		vim.lsp.enable(server)
-	end
-else
-	vim.print("Error, not enable complete plugin")
+for server, conf in pairs(lsp_servers) do
+	vim.lsp.config(server, {
+		capabilities = require("blink.cmp").get_lsp_capabilities(),
+		cmd = conf.cmd,
+		settings = conf.settings,
+	})
+	vim.lsp.enable(server)
 end
