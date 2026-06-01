@@ -76,7 +76,7 @@ require("lazy").setup({
 					-- macro is executed. Feature names can be seen in features table below.
 					-- features_disabled can also be set to "all" and then all features that
 					-- are on (on=true) are going to be disabled for this behaviour.
-					-- Specificaly:
+					-- Specifically:
 					-- * lualine plugin is disabled when macros are executed because
 					-- if a recursive macro opens a buffer on every iteration this error will
 					-- happen after 300-400 hundred iterations:
@@ -834,11 +834,52 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"smoka7/hop.nvim",
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-		end,
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+			{
+				"S",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash Treesitter",
+			},
+			{
+				"r",
+				mode = "o",
+				function()
+					require("flash").remote()
+				end,
+				desc = "Remote Flash",
+			},
+			{
+				"R",
+				mode = { "o", "x" },
+				function()
+					require("flash").treesitter_search()
+				end,
+				desc = "Treesitter Search",
+			},
+			{
+				"<c-s>",
+				mode = { "c" },
+				function()
+					require("flash").toggle()
+				end,
+				desc = "Toggle Flash Search",
+			},
+		},
 	},
 	{
 		"JuanZoran/Trans.nvim",
