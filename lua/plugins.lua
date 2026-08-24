@@ -302,6 +302,7 @@ require("lazy").setup({
 			-- refer to the configuration section below
 			animate = { enabled = true, duration = 20, easing = "linear" },
 			bigfile = { enabled = true },
+			image = { enabled = true },
 			dashboard = { enabled = true },
 			explorer = { enabled = true },
 			indent = { enabled = true, only_current = true, only_scope = true },
@@ -961,7 +962,7 @@ require("lazy").setup({
 		end,
 		keys = {
 			{
-				"<C-a>",
+				"<leader>oa",
 				function()
 					require("opencode").ask("@this: ", { submit = true })
 				end,
@@ -969,20 +970,12 @@ require("lazy").setup({
 				desc = "Ask opencode…",
 			},
 			{
-				"<C-x>",
+				"<leader>os",
 				function()
 					require("opencode").select()
 				end,
 				mode = { "n", "x" },
 				desc = "Execute opencode action…",
-			},
-			{
-				"<C-.>",
-				function()
-					require("opencode").toggle()
-				end,
-				mode = { "n", "t" },
-				desc = "Toggle opencode",
 			},
 			{
 				"go",
@@ -1017,20 +1010,6 @@ require("lazy").setup({
 				end,
 				mode = { "n" },
 				desc = "Scroll opencode down",
-			},
-			{
-				"+",
-				"<C-a>",
-				mode = { "n" },
-				noremap = true,
-				desc = "Increment under cursor",
-			},
-			{
-				"-",
-				"<C-x>",
-				mode = { "n" },
-				noremap = true,
-				desc = "Decrement under cursor",
 			},
 		},
 	},
