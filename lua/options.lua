@@ -30,8 +30,14 @@ local options = {
 
 	cindent = true,
 	undofile = true,
-	undodir = "/home/cambricon/.local/state/nvim/undodir",
+	-- undo dir must be per-user: stdpath("state") resolves to
+	-- ~/.local/state/nvim for whoever runs nvim (no hardcoded $HOME paths)
+	undodir = vim.fn.stdpath("state") .. "/undodir",
 }
+
+-- stdpath("state")/undodir may not exist yet on first run; :h undo-dir says
+-- nvim will try to create the directory, but only one level -- create here
+vim.fn.mkdir(vim.o.undodir, "p")
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

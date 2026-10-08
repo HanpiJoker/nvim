@@ -30,119 +30,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"pteroctopus/faster.nvim",
-		opts = {
-			-- Behaviour table contains configuration for behaviours faster.nvim uses
-			behaviours = {
-				-- Bigfile configuration controls disabling and enabling of features when
-				-- big file is opened
-				bigfile = {
-					-- Behaviour can be turned on or off. To turn on set to true, otherwise
-					-- set to false
-					on = true,
-					-- Table which contains names of features that will be disabled when
-					-- bigfile is opened. Feature names can be seen in features table below.
-					-- features_disabled can also be set to "all" and then all features that
-					-- are on (on=true) are going to be disabled for this behaviour
-					features_disabled = {
-						"matchparen",
-						"lsp",
-						"treesitter",
-						"indent_blankline",
-						"vimopts",
-						"syntax",
-						"filetype",
-					},
-					-- Files larger than `filesize` are considered big files. Value is in MB.
-					filesize = 2,
-					-- Autocmd pattern that controls on which files behaviour will be applied.
-					-- `*` means any file.
-					pattern = "*",
-					-- Optional extra patterns and sizes for which bigfile behaviour will apply.
-					-- Note! that when multiple patterns (including the main one) and filesizes
-					-- are defined: bigfile behaviour will be applied for minimum filesize of
-					-- those defined in all applicable patterns for that file.
-					-- extra_pattern example in multi line comment is bellow:
-					-- By default `extra_patterns` is an empty table: {}.
-					extra_patterns = {},
-				},
-				-- Fast macro configuration controls disabling and enabling features when
-				-- macro is executed
-				fastmacro = {
-					-- Behaviour can be turned on or off. To turn on set to true, otherwise
-					-- set to false
-					on = true,
-					-- Table which contains names of features that will be disabled when
-					-- macro is executed. Feature names can be seen in features table below.
-					-- features_disabled can also be set to "all" and then all features that
-					-- are on (on=true) are going to be disabled for this behaviour.
-					-- Specifically:
-					-- * lualine plugin is disabled when macros are executed because
-					-- if a recursive macro opens a buffer on every iteration this error will
-					-- happen after 300-400 hundred iterations:
-					-- `E5108: Error executing lua Vim:E903: Process failed to start: too many open files: "/usr/bin/git"`
-					-- * mini.clue plugin is disabled when macros are executed because it breaks execution of some macros
-					features_disabled = { "lualine", "mini_clue" },
-				},
-			},
-			-- Feature table contains configuration for features faster.nvim will disable
-			-- and enable according to rules defined in behaviours.
-			-- Defined feature will be used by faster.nvim only if it is on (`on=true`).
-			-- Defer will be used if some features need to be disabled after others.
-			-- defer=false features will be disabled first and defer=true features last.
-			features = {
-				-- Neovim filetype plugin
-				-- https://neovim.io/doc/user/filetype.html
-				filetype = {
-					on = true,
-					defer = true,
-				},
-				-- Indent Blankline
-				-- https://github.com/lukas-reineke/indent-blankline.nvim
-				indent_blankline = {
-					on = true,
-					defer = false,
-				},
-				-- Neovim LSP
-				-- https://neovim.io/doc/user/lsp.html
-				lsp = {
-					on = true,
-					defer = false,
-				},
-				-- Lualine
-				-- https://github.com/nvim-lualine/lualine.nvim
-				lualine = {
-					on = true,
-					defer = false,
-				},
-				-- Neovim Pi_paren plugin
-				-- https://neovim.io/doc/user/pi_paren.html
-				matchparen = {
-					on = true,
-					defer = false,
-				},
-				-- Neovim syntax
-				-- https://neovim.io/doc/user/syntax.html
-				syntax = {
-					on = true,
-					defer = true,
-				},
-				-- Neovim treesitter
-				-- https://neovim.io/doc/user/treesitter.html
-				treesitter = {
-					on = true,
-					defer = false,
-				},
-				-- Neovim options that affect speed when big file is opened:
-				-- swapfile, foldmethod, undolevels, undoreload, list
-				vimopts = {
-					on = true,
-					defer = false,
-				},
-			},
-		},
-	},
-	{
 		"gbprod/yanky.nvim",
 		dependencies = { "kkharji/sqlite.lua" },
 		opts = {
@@ -199,9 +86,8 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
-			options = { theme = "onedark" },
+			options = { theme = "catppuccin" },
 			sections = {
-				lualine_x = { "aerial" },
 				lualine_z = {
 					{
 						function()
@@ -262,36 +148,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"ibhagwan/fzf-lua",
-		-- optional for icon support
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		-- or if using mini.icons/mini.nvim
-		-- dependencies = { "nvim-mini/mini.icons" },
-		---@module "fzf-lua"
-		---@type fzf-lua.Config|{}
-		---@diagnostic disable: missing-fields
-		opts = {},
-		---@diagnostic enable: missing-fields
-	},
-	{
-		"DrKJeff16/project.nvim",
-		opts = {
-			silent_chdir = true,
-			snacks = {
-				enabled = true,
-				opts = {
-					sort = "newest",
-					hidden = false,
-					title = "Select Project",
-					layout = "select",
-				},
-			},
-			fzf_lua = {
-				enabled = true,
-			},
-		},
-	},
-	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -301,7 +157,12 @@ require("lazy").setup({
 			-- or leave it empty to use the default settings
 			-- refer to the configuration section below
 			animate = { enabled = true, duration = 20, easing = "linear" },
-			bigfile = { enabled = true },
+			bigfile = {
+			enabled = true,
+			notify = true, -- show notification when big file detected
+			size = 1.5 * 1024 * 1024, -- 1.5MB file size threshold
+			line_length = 1000, -- average line length threshold (minified files)
+		},
 			image = { enabled = true },
 			dashboard = { enabled = true },
 			explorer = { enabled = true },
@@ -310,6 +171,18 @@ require("lazy").setup({
 			notifier = { enabled = true },
 			picker = {
 				enabled = true,
+				sources = {
+					projects = {
+						-- top-level dirs containing multiple projects
+						dev = { "~/WorkSpace" },
+						-- patterns to detect project root directories
+						patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "package.json", "Makefile" },
+						-- also include project dirs of recently opened files
+						recent = true,
+						-- max depth to search in dev directories
+						max_depth = 3,
+					},
+				},
 				actions = {
 					opencode_send = function(...)
 						return require("opencode").snacks_picker_send(...)
@@ -477,11 +350,11 @@ require("lazy").setup({
 				desc = "Grep Open Buffers",
 			},
 			{
-				"<leader>sw",
+				"<leader>sg",
 				function()
 					Snacks.picker.grep_word()
 				end,
-				desc = "Visual selection or word",
+				desc = "Grep word/selection (read-only)",
 				mode = { "n", "x" },
 			},
 			-- search
@@ -505,13 +378,6 @@ require("lazy").setup({
 					Snacks.picker.autocmds()
 				end,
 				desc = "Autocmds",
-			},
-			{
-				"<leader>sb",
-				function()
-					Snacks.picker.lines()
-				end,
-				desc = "Buffer Lines",
 			},
 			{
 				"<leader>sC",
@@ -591,11 +457,11 @@ require("lazy").setup({
 				desc = "Man Pages",
 			},
 			{
-				"<leader>sp",
+				"<leader>sP",
 				function()
 					Snacks.picker.lazy()
 				end,
-				desc = "Search for Plugin Spec",
+				desc = "Search Plugin Specs",
 			},
 			{
 				"<leader>sq",
@@ -713,18 +579,11 @@ require("lazy").setup({
 				desc = "Toggle Scratch Buffer",
 			},
 			{
-				"<leader>S",
+				"<leader>bs",
 				function()
 					Snacks.scratch.select()
 				end,
 				desc = "Select Scratch Buffer",
-			},
-			{
-				"<leader>n",
-				function()
-					Snacks.notifier.show_history()
-				end,
-				desc = "Notification History",
 			},
 			{
 				"<leader>bd",
@@ -850,7 +709,7 @@ require("lazy").setup({
 			},
 			{
 				"S",
-				mode = { "n", "x", "o" },
+				mode = { "n", "o" }, -- x 模式留给 nvim-surround 的 S（visual 加环绕）
 				function()
 					require("flash").treesitter()
 				end,
@@ -931,18 +790,20 @@ require("lazy").setup({
 		},
 	},
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		build = ":MasonUpdate",
 		config = function()
 			require("mason").setup()
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
-		version = "1.x",
+		"mason-org/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "jsonls", "bashls", "pylsp" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "jsonls", "bashls", "ruff", "pylsp", "marksman" },
+				-- LSP 统一由 lua/lspconfig.lua 里的 vim.lsp.enable() 管理，
+				-- 关闭 v2 的自动启用，避免与手动配置竞争
+				automatic_enable = false,
 			})
 		end,
 	},
@@ -1100,11 +961,9 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"numToStr/Comment.nvim",
-		lazy = false,
-		config = function()
-			require("Comment").setup({})
-		end,
+		"nvim-mini/mini.comment",
+		version = "*",
+		opts = {},
 	},
 	{
 		"lewis6991/gitsigns.nvim",
@@ -1134,14 +993,6 @@ require("lazy").setup({
 		config = function()
 			require("plugin.nvim-lint")
 		end,
-	},
-	{
-		"3rd/image.nvim",
-		build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
-		opts = {
-			processor = "magick_cli",
-			backend = "kitty",
-		},
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",

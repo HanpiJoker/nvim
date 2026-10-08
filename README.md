@@ -29,7 +29,7 @@ NVIM_APPNAME=HanpiJoker/nvim/ nvim
 ### comment
 
 + [danymat/neogen](https://dotfyle.com/plugins/danymat/neogen)
-+ [numToStr/Comment.nvim](https://dotfyle.com/plugins/numToStr/Comment.nvim)
++ [nvim-mini/mini.comment](https://dotfyle.com/plugins/nvim-mini/mini.comment)
 ### completion
 
 + [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
@@ -58,7 +58,7 @@ NVIM_APPNAME=HanpiJoker/nvim/ nvim
 + [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
 ### lsp-installer
 
-+ [williamboman/mason.nvim](https://dotfyle.com/plugins/williamboman/mason.nvim)
++ [mason-org/mason.nvim](https://dotfyle.com/plugins/mason-org/mason.nvim)
 ### nvim-dev
 
 + [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
